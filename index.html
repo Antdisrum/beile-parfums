@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEILÉ Parfums — Lo que permanece</title>
+<meta name="description" content="BEILÉ Parfums. Fragancias de alta fijación inspiradas en los perfumes más icónicos, a $99.900 COP. Catálogo Damas, Caballeros, Diseñador y Árabe. Envíos a toda Colombia desde Medellín — asesoría por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Questrial&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  section h2,
+  footer h2 {
+    text-shadow: 0 2px 3px rgba(0, 0, 0, .9), 0 0 16px rgba(0, 0, 0, .65);
+  }
+
+  section > div p.text-xs.tracking-widest2.uppercase.text-taupe {
+    display: inline-block;
+    padding: .25rem .75rem;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, .7);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  #beneficios .grid > div {
+    background: rgba(0, 0, 0, .65);
+    border: 1px solid rgba(255, 255, 255, .15);
+    border-radius: 1rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .tarjeta-perfume {
+    background: #ffffff;
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    min-width: 280px;
+    flex-shrink: 0;
+    border: 1px solid #f3f4f6;
+    height: auto !important;
+  }
+
+  .tarjeta-imagen-box {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    padding: 1.25rem;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tarjeta-imagen-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .tarjeta-info-box {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+    background: #ffffff;
+  }
+
+  .tarjeta-info-box h3 {
+    color: #181719 !important;
+    font-weight: 700 !important;
+    font-size: 1.15rem !important;
+    margin: 0 !important;
+  }
+
+  .tarjeta-info-box button,
+  .tarjeta-info-box span {
+    color: #181719 !important;
+  }
+
+  .tarjeta-info-box .btn-detalles {
+    color: #181719 !important;
+    border-color: #d1d5db !important;
+    font-weight: 600 !important;
+  }
+
+  .tarjeta-info-box .btn-detalles:hover {
+    border-color: #181719 !important;
+    background-color: #fafafa !important;
+  }
+
+  .tarjeta-info-box .precio-texto {
+    color: #181719 !important;
+    font-weight: 700 !important;
+  }
+
+  .producto-card .dato-nombre,
+  .producto-card .dato-familia,
+  .producto-card .dato-notas,
+  .producto-card .dato-detal,
+  .producto-card .dato-detal + * {
+    color: #111;
+    font-weight: 500;
+  }
+
+  /* ---- Tipografía estricta (ronda 9) ------------------------------------
+     Questrial para títulos, nombres de producto, menú y botones de acción;
+     Bogart/Fraunces para cuerpo de texto, notas, citas y textos de política.
+     Nota: la clase `.font-serif` (heredada de rondas anteriores) queda en el
+     grupo Questrial porque hoy solo se usa en encabezados/menú (el nombre no
+     coincide con lo que hace, pero renombrarla está fuera de este pedido). */
+  body,
+  p {
+    font-family: 'Bogart', 'Fraunces', Georgia, serif !important;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  button,
+  input,
+  textarea,
+  select,
+  span,
+  a,
+  li,
+  label,
+  .dato-nombre,
+  .producto-card .dato-nombre,
+  .logo,
+  .font-serif,
+  .font-display {
+    font-family: 'Questrial', sans-serif !important;
+  }
+
+  /* ---- Titular del Hero (ronda 10) --------------------------------------
+     Excepción puntual a la regla Questrial de arriba: el <h1> del Hero pide
+     Fraunces/Bogart con más peso para dar elegancia. La clase .hero-title
+     (selector de clase) tiene más especificidad que el selector de elemento
+     "h1" de la regla general, así que gana aunque ambas usen !important. */
+  .hero-title {
+    font-family: 'Fraunces', 'Bogart', serif !important;
+    font-weight: 700;
+    /* text-shadow ya no vive aquí (ronda 16): el <h1> del Hero ahora trae su
+       propia sombra por style="" inline, para no pelear con el !important
+       de esta regla. */
+  }
+
+  .producto-card .media-box {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+
+  .carousel-viewport {
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+  }
+
+  .carousel-viewport .carousel-track { width: max-content; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .producto-card { width: 18rem; max-width: 18.125rem; }
+  .carousel-track {
+    width: 100%;
+    min-width: 0;
+    gap: 1.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    flex-wrap: nowrap;
+  }
+  .producto-card .media-box { height: 20rem; aspect-ratio: auto; }
+  .producto-card .media-box img,
+  .producto-card .media-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: .5rem;
+  }
+  .carousel-arrow {
+    position: absolute;
+    top: 50% !important;
+    z-index: 50 !important;
+    display: flex !important;
+    width: 3rem !important;
+    height: 3rem !important;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%) !important;
+    border-radius: 9999px !important;
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .6) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+  }
+  #damas .carousel-arrow:first-child,
+  #caballeros .carousel-arrow:first-child,
+  #disenador .carousel-arrow:first-child,
+  #arabe .carousel-arrow:first-child { left: 0 !important; }
+  #damas .carousel-arrow:last-child,
+  #caballeros .carousel-arrow:last-child,
+  #disenador .carousel-arrow:last-child,
+  #arabe .carousel-arrow:last-child { right: 0 !important; }
+  .carousel-arrow:hover { transform: translateY(-50%) scale(1.1) !important; }
+  .carousel-arrow:active { transform: translateY(-50%) !important; }
+
+  @media (max-width: 1023px) {
+    .carousel-track { gap: 1.25rem; padding-left: 2rem; padding-right: 2rem; }
+  }
+  @media (max-width: 639px) {
+    .carousel-track { gap: 1rem; padding-left: 1rem; padding-right: 1rem; }
+  }
+
+  .cart-badge { min-width: 1.35rem; height: 1.35rem; }
+  #cart-overlay { display: flex; }
+  #cart-overlay .cart-drawer { margin-left: auto; }
+  .shop-overlay { opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+  .shop-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .product-modal-panel { transform: translateY(1rem); transition: transform .25s ease; }
+  .shop-overlay.is-open .product-modal-panel { transform: translateY(0); }
+  .cart-drawer { transform: translateX(100%); transition: transform .3s ease; }
+  .shop-overlay.is-open .cart-drawer { transform: translateX(0); }
+  body.modal-open { overflow: hidden; }
+
+  #cart-overlay {
+    z-index: 80;
+    /* Empieza debajo del header (h-20 = 5rem) en vez de cubrir toda la
+       pantalla: así el ícono 🛒 del header queda SIEMPRE clickeable — tanto
+       para abrir como para volver a tocarlo y CERRAR el carrito — sin que
+       el fondo oscuro del carrito quede tapándolo. */
+    top: 5rem;
+    background: rgba(0, 0, 0, .7);
+    backdrop-filter: blur(4px);
+  }
+
+  #cart-overlay .cart-drawer {
+    width: 100%;
+    max-width: 28rem;
+    background: #fff;
+    color: #111;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, .35);
+  }
+
+  #cart-overlay #cart-title {
+    color: #000;
+    font-family: Manrope, ui-sans-serif, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  #cart-overlay [data-close-shop] {
+    background: transparent;
+    color: #000;
+    font-size: 1.5rem;
+  }
+
+  #cart-overlay #cart-title { color: #181719; font-family: 'Fraunces', serif; }
+  #cart-overlay [data-close-shop] { background: #181719; color: #F6F5F7; }
+  #cart-overlay #cart-items { overflow-y: auto; }
+
+  #cart-overlay #cart-items article {
+    display: flex;
+    gap: .75rem;
+    align-items: flex-start;
+    margin-bottom: .5rem;
+    padding: .75rem;
+    border: 0;
+    border-radius: .75rem;
+    background: #fafafa;
+  }
+
+  #cart-overlay #cart-items article h3,
+  #cart-overlay #cart-items article p,
+  #cart-overlay #cart-items article span {
+    color: #181719;
+  }
+
+  #cart-overlay #cart-items article img {
+    width: 4rem;
+    height: 5rem;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: #fff;
+    border-radius: .5rem;
+  }
+
+  #cart-overlay .cart-item-info { flex: 1; min-width: 0; }
+  #cart-overlay .cart-item-nombre { margin: 0 0 .2rem; font-weight: 700; font-size: .9rem; }
+  #cart-overlay .cart-item-precio { margin: 0 0 .5rem; font-size: .8rem; color: #6E6A73; }
+  #cart-overlay .cart-item-controles { display: flex; align-items: center; gap: .5rem; }
+
+  #cart-overlay [data-cart-quantity] {
+    display: flex;
+    align-items: center;
+    color: #181719;
+    border: 1px solid #6E6A73;
+    border-radius: 9999px;
+  }
+
+  #cart-overlay [data-cart-quantity] button {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: none;
+    border: none;
+    color: #181719;
+    font-size: .95rem;
+    cursor: pointer;
+  }
+
+  #cart-overlay [data-cart-quantity] span {
+    display: inline-block;
+    width: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  #cart-overlay [data-remove-item] {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #b3261e;
+    font-size: .7rem;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  #cart-overlay .cart-vacio {
+    color: #6E6A73;
+    text-align: center;
+    padding: 2.5rem 1rem;
+    font-size: .9rem;
+  }
+
+  #cart-overlay #cart-subtotal,
+  #cart-overlay #cart-shipping,
+  #cart-overlay #cart-total {
+    color: #181719;
+  }
+
+  #cart-overlay .cart-summary-note {
+    color: #525252;
+  }
+
+  #cart-overlay #btn-wompi,
+  #cart-overlay #btn-cart-whatsapp {
+    width: 100%;
+    border-radius: .75rem;
+    color: #fff;
+    font-weight: 700;
+    padding: .875rem 1rem;
+    transition: background-color .2s ease;
+  }
+
+  #cart-overlay #btn-wompi { background: #000; }
+  #cart-overlay #btn-wompi:hover { background: #262626; }
+  #cart-overlay #btn-cart-whatsapp { background: #25D366; }
+  #cart-overlay #btn-cart-whatsapp:hover { background: #20bd5a; }
+
+  /* ============ MODAL DE PRODUCTO — Paleta oficial BEILÉ ============ */
+  /* Deep Graphite #181719 · Slate Steel #6E6A73 · Carbon Charcoal #2B2A2F · Alabaster #F6F5F7 */
+  /* Estilo escrito a mano (no depende de clases de Tailwind) para que el contraste
+     quede garantizado sin importar si el CSS compilado se actualiza o no. */
+  #producto-modal { padding: 1rem; }
+
+  #producto-modal .modal-panel {
+    position: relative;
+    width: 100%;
+    max-width: 64rem;
+    max-height: 92vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .6);
+  }
+
+  #producto-modal .modal-cerrar {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: #181719;
+    color: #F6F5F7;
+    font-size: 1.25rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  #producto-modal .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    #producto-modal .modal-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  #producto-modal .modal-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22rem;
+    padding: 1.5rem;
+    background: #fafafa;
+  }
+
+  @media (min-width: 768px) {
+    #producto-modal .modal-media { min-height: 32rem; }
+  }
+
+  #producto-modal .modal-imagen,
+  #producto-modal .modal-video {
+    max-height: 20rem;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: .75rem;
+  }
+
+  #producto-modal .modal-info { padding: 1.75rem; }
+
+  @media (min-width: 768px) {
+    #producto-modal .modal-info { padding: 2.5rem; }
+  }
+
+  #producto-modal .modal-ocasion {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    margin-bottom: .85rem;
+    padding: .35rem .85rem;
+    border-radius: 9999px;
+    background: #F6F5F7;
+    border: 1px solid #6E6A73;
+    color: #181719;
+    font-family: 'Questrial', sans-serif;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  #producto-modal .modal-familia {
+    margin: 0 0 .6rem;
+    color: #6E6A73;
+    font-family: 'Questrial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-size: .7rem;
+    font-weight: 600;
+  }
+
+  #producto-modal .modal-nombre {
+    margin: 0 0 1rem;
+    color: #181719;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 1.7rem;
+    line-height: 1.15;
+  }
+
+  @media (min-width: 768px) {
+    #producto-modal .modal-nombre { font-size: 2.1rem; }
+  }
+
+  #producto-modal .modal-notas-label {
+    margin: 0 0 .3rem;
+    color: #6E6A73;
+    font-family: 'Questrial', sans-serif;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  #producto-modal .modal-notas {
+    margin: 0 0 .75rem;
+    color: #2B2A2F;
+    line-height: 1.6;
+    font-size: .95rem;
+  }
+
+  #producto-modal .modal-huele {
+    margin: 0 0 1.5rem;
+    color: #2B2A2F;
+    font-style: italic;
+    line-height: 1.6;
+    font-size: .9rem;
+  }
+
+  #producto-modal .modal-precio {
+    margin: 0 0 1.25rem;
+    color: #181719;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+  }
+
+  #producto-modal .modal-cantidad-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  #producto-modal .modal-cantidad-titulo {
+    color: #6E6A73;
+    font-family: 'Questrial', sans-serif;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  #producto-modal .modal-cantidad-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #6E6A73;
+    border-radius: 9999px;
+  }
+
+  #producto-modal .modal-cantidad-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    background: none;
+    border: none;
+    color: #181719;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  #producto-modal .modal-cantidad-num {
+    display: inline-block;
+    width: 2rem;
+    text-align: center;
+    color: #181719;
+    font-weight: 700;
+  }
+
+  #producto-modal .modal-btn-carrito {
+    display: block;
+    width: 100%;
+    margin-bottom: .75rem;
+    padding: 1rem 1.25rem;
+    background: #181719;
+    color: #F6F5F7;
+    border: none;
+    border-radius: .25rem;
+    font-family: 'Questrial', sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform .15s ease, background-color .15s ease;
+    text-align: center;
+  }
+
+  #producto-modal .modal-btn-carrito:hover {
+    background: #2B2A2F;
+    transform: scale(1.02);
+  }
+
+  #producto-modal .modal-btn-whatsapp {
+    display: block;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    border: 2px solid #181719;
+    border-radius: .25rem;
+    color: #181719;
+    background: transparent;
+    font-family: 'Questrial', sans-serif;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .15s ease, color .15s ease;
+  }
+
+  #producto-modal .modal-btn-whatsapp:hover {
+    background: #181719;
+    color: #F6F5F7;
+  }
+
+  /* ---- Insignia DÍA/NOCHE en la tarjeta de producto ---- */
+  .badge-ocasion {
+    position: absolute;
+    left: .75rem;
+    top: .75rem;
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid #6E6A73;
+    color: #181719;
+    border-radius: 9999px;
+    padding: .3rem .55rem;
+    font-size: .7rem;
+    line-height: 1;
+    font-weight: 700;
+  }
+
+  /* ---- Testimonios reales con foto (UGC) ---- */
+  .testimonio-card {
+    border: 1px solid rgba(199, 197, 190, .25);
+    background: rgba(255, 255, 255, .05);
+    backdrop-filter: blur(12px);
+    border-radius: .25rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .testimonio-foto {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .testimonio-cuerpo { padding: 2rem; }
+  .testimonio-nombre {
+    font-size: .75rem;
+    font-weight: 700;
+    color: #F5EFE6;
+  }
+  .testimonio-perfumes {
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #B9AE9C;
+    margin-top: .2rem;
+  }
+
+  /* ---- Bloque "Entrega Verificada" ---- */
+  .entrega-verificada {
+    margin-top: 2.5rem;
+    background: rgba(255, 255, 255, .05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(110, 231, 183, .3);
+    border-radius: .25rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  @media (min-width: 768px) {
+    .entrega-verificada { flex-direction: row; padding: 2.5rem; }
+  }
+  .entrega-verificada-icono { font-size: 1.9rem; line-height: 1; }
+
+  /* ---- Etiqueta "Agotado · Bajo Pedido" (solo aparece si el producto NO está en stock) ---- */
+  /* Si un producto está disponible (disponible:true), no se imprime ningún span y la
+     foto queda limpia. Si además la tarjeta tiene insignia DÍA/NOCHE (.badge-ocasion),
+     la regla de abajo la corre hacia abajo para que no se encimen las dos etiquetas. */
+  .badge-agotado-tag { line-height: 1; }
+  .tarjeta-imagen-box:has(.badge-agotado-tag) .badge-ocasion {
+    top: 2.75rem;
+  }
+
+  .modal-stock {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 .6rem;
+    padding: .3rem .75rem;
+    border-radius: 9999px;
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: #FBBF24;
+    background: rgba(23, 23, 23, .9);
+    border: 1px solid rgba(251, 191, 36, .3);
+  }
+  /* Sin esto, `.modal-stock{display:inline-flex}` gana contra `.hidden{display:none}`
+     (misma especificidad, y .modal-stock aparece después en la hoja de estilos) y la
+     insignia queda visible-pero-vacía en productos EN STOCK. */
+  .modal-stock.hidden { display: none; }
+
+  /* ---- Buscador en tiempo real (🔍) ---- */
+  .buscador-wrap {
+    max-width: 72rem;
+    margin: 2rem auto;
+    padding: 0 1.25rem;
+  }
+  .buscador-input-row {
+    max-width: 36rem;
+    margin: 0 auto;
+  }
+  .buscador-box { position: relative; }
+  #buscador-perfumes {
+    width: 100%;
+    background: #fff;
+    color: #181719;
+    padding: .95rem 1.25rem .95rem 3rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .35);
+    font-size: .9rem;
+    font-family: 'Questrial', sans-serif;
+  }
+  #buscador-perfumes:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px #181719, 0 20px 40px -12px rgba(0, 0, 0, .35);
+  }
+  #buscador-perfumes::placeholder { color: #9a9a9a; }
+  .buscador-icono {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9a9a9a;
+    font-size: 1.1rem;
+    pointer-events: none;
+  }
+  #resultados-busqueda {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    #resultados-busqueda { grid-template-columns: repeat(4, 1fr); }
+  }
+  /* Dentro de la cuadrícula de resultados, las tarjetas deben adaptarse al
+     ancho de su columna (en los carruseles usan un ancho fijo de 280px). */
+  #resultados-busqueda .tarjeta-perfume {
+    width: 100%;
+    min-width: 0;
+  }
+  .buscador-sin-resultados {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #F6F5F7;
+    background: rgba(255, 255, 255, .06);
+    border: 1px dashed rgba(255, 255, 255, .25);
+    border-radius: .75rem;
+    padding: 2rem 1.5rem;
+    font-size: .9rem;
+  }
+</style>
+</head>
+<body class="bg-night text-mist font-sans antialiased">
+
+<!-- ============ FONDO GENERAL DE MÁRMOL ============ -->
+<div class="fixed inset-0 -z-10">
+  <img src="assets/img/marmoleado-bg.jpg" alt="" class="w-full h-full object-cover">
+  <div class="absolute inset-0 bg-gradient-to-b from-night/22 via-night/5 to-night/25"></div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 inset-x-0 z-50 bg-night/60 backdrop-blur-md border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 text-left group">
+      <span class="text-2xl md:text-3xl font-bold font-serif tracking-wider text-[#F6F5F7]">BEILÉ</span>
+      <span class="text-[10px] uppercase tracking-[0.25em] text-[#C8C4CC] font-sans font-normal border-l border-white/20 pl-2">PARFUMS</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-7 text-[0.65rem] tracking-widest2 uppercase text-mist">
+      <a href="index.html" class="hover:text-alabaster transition-colors">INICIO</a>
+      <a href="damas.html" class="hover:text-alabaster transition-colors">DAMAS</a>
+      <a href="caballeros.html" class="hover:text-alabaster transition-colors">CABALLEROS</a>
+      <a href="index.html#disenador" class="hover:text-alabaster transition-colors">Diseñador</a>
+      <a href="index.html#arabe" class="hover:text-alabaster transition-colors">Árabe</a>
+      <a href="#experiencia" class="hover:text-alabaster transition-colors">Nosotros</a>
+      <a href="#contacto" class="hover:text-alabaster transition-colors">Contacto</a>
+    </nav>
+    <a href="https://wa.me/573023476047?text=Hola%20BEILÉ%2C%20quiero%20asesor%C3%ADa%20para%20elegir%20mi%20fragancia" target="_blank" rel="noopener"
+       class="hidden sm:inline-flex items-center gap-2 border border-silver/40 text-mist px-5 py-2.5 text-xs tracking-widest2 uppercase hover:bg-alabaster hover:text-ink hover:border-alabaster transition-colors">
+      Escríbenos
+    </a>
+    <button id="btn-cart" type="button" aria-label="Abrir carrito" class="relative ml-4 inline-flex items-center justify-center text-mist hover:text-alabaster transition-colors">
+      <span aria-hidden="true" class="text-xl">🛒</span>
+      <span id="cart-count" class="cart-badge absolute -right-3 -top-2 rounded-full bg-[#25D366] px-1 text-[0.65rem] font-bold leading-[1.35rem] text-white">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ BANNER PROMO: ESPECIAL AMOR Y AMISTAD ============ -->
+<div class="mt-20 bg-gradient-to-r from-red-950 via-brand-graphite to-red-950 text-white py-3 px-4 text-center text-xs md:text-sm border-y border-red-800/40">
+  🌹 <strong>ESPECIAL AMOR Y AMISTAD:</strong> Combo Pareja (2 Perfumes de $99.900 COP a elección) por solo <strong>$189.900 COP</strong> con ¡DOMICILIO GRATIS! 🎁 Incluye bolsa de boutique y empaque. <em>(Válido solo en referencias de $99.900).</em> 📍 Entregas en Medellín hasta el sábado 19 de Septiembre.
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="inicio" class="relative py-28 md:py-36 px-6 text-center flex flex-col items-center justify-center overflow-hidden min-h-[85vh]">
+  <!-- Video de fondo -->
+  <video src="assets/video/hero.mp4.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0"></video>
+
+  <!-- Velo oscuro transparente (sin cajas en el centro) -->
+  <div class="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
+
+  <!-- Contenido flotante libre -->
+  <div class="relative z-10 max-w-3xl mx-auto text-center px-4">
+    <span class="inline-block bg-black/60 border border-white/25 text-neutral-200 text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
+      BEILÉ PARFUMS
+    </span>
+
+    <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl font-bold font-serif text-white tracking-tight leading-tight mb-6" style="text-shadow: 0 4px 20px rgba(0,0,0,0.9);">
+      Lo que permanece.
+    </h1>
+
+    <p class="text-sm sm:text-base md:text-lg text-neutral-200 max-w-xl mx-auto mb-8 font-normal leading-relaxed" style="text-shadow: 0 2px 10px rgba(0,0,0,0.85);">
+      El perfume permanece en la piel;<br class="hidden sm:inline"> la persona permanece en la memoria.
+    </p>
+
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href="#para-ella" class="bg-[#F6F5F7] text-[#181719] hover:bg-white px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-2xl hover:scale-105 transition">
+        Explorar Catálogo
+      </a>
+      <a href="https://wa.me/573023476047?text=Hola%20BEIL%C3%89,%20quiero%20asesor%C3%ADa" target="_blank" rel="noopener" class="bg-black/60 border border-white/40 text-white hover:bg-white hover:text-black px-8 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider backdrop-blur-md hover:scale-105 transition">
+        Asesoría por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUSCADOR EN TIEMPO REAL ============ -->
+<div class="buscador-wrap">
+  <div class="buscador-input-row">
+    <div class="buscador-box">
+      <input type="text" id="buscador-perfumes" oninput="buscarPerfumes(this.value)" placeholder="Buscar por nombre, casa o aroma (ej. Asad, Good Girl, Vainilla)..." autocomplete="off">
+      <span class="buscador-icono" aria-hidden="true">🔍</span>
+    </div>
+  </div>
+  <div id="resultados-busqueda" class="hidden"></div>
+</div>
+
+<!-- ============ CARRUSEL: PARA ELLA ============ -->
+<section id="para-ella" class="py-14 md:py-20 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-end justify-between gap-6 mb-8">
+    <div>
+      <p class="text-xs tracking-widest2 uppercase text-taupe mb-3">Colección Damas</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-alabaster">Para Ella</h2>
+    </div>
+  </div>
+  <div class="relative w-full max-w-7xl mx-auto px-12 my-6">
+    <button type="button" onclick="document.getElementById('carrusel-damas').scrollBy({ left: -380, behavior: 'smooth' })" style="position:absolute;left:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Anterior">&#10094;</button>
+    <div id="carrusel-damas" class="carousel-track flex gap-6 overflow-x-auto scroll-smooth py-4 px-2 no-scrollbar" style="overflow-x: auto; overflow-y: hidden; scrollbar-width: none;"></div>
+    <button type="button" onclick="document.getElementById('carrusel-damas').scrollBy({ left: 380, behavior: 'smooth' })" style="position:absolute;right:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Siguiente">&#10095;</button>
+  </div>
+</section>
+
+<!-- ============ CARRUSEL: PARA ÉL ============ -->
+<section id="para-el" class="py-14 md:py-20 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-end justify-between gap-6 mb-8">
+    <div>
+      <p class="text-xs tracking-widest2 uppercase text-taupe mb-3">Colección Caballeros</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-alabaster">Para Él</h2>
+    </div>
+  </div>
+  <div class="relative w-full max-w-7xl mx-auto px-12 my-6">
+    <button type="button" onclick="document.getElementById('carrusel-caballeros').scrollBy({ left: -380, behavior: 'smooth' })" style="position:absolute;left:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Anterior">&#10094;</button>
+    <div id="carrusel-caballeros" class="carousel-track flex gap-6 overflow-x-auto scroll-smooth py-4 px-2 no-scrollbar" style="overflow-x: auto; overflow-y: hidden; scrollbar-width: none;"></div>
+    <button type="button" onclick="document.getElementById('carrusel-caballeros').scrollBy({ left: 380, behavior: 'smooth' })" style="position:absolute;right:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Siguiente">&#10095;</button>
+  </div>
+</section>
+
+<!-- ============ ¿POR QUÉ ELEGIR BEILÉ? ============ -->
+<section id="beneficios" class="py-24 md:py-32 scroll-mt-24">
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
+    <div class="text-center mb-16">
+      <p class="text-xs tracking-widest2 uppercase text-taupe mb-4">La diferencia BEILÉ</p>
+      <h2 class="font-serif text-4xl md:text-5xl text-alabaster">¿Por qué elegir BEILÉ?</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+      <div class="bg-white/5 backdrop-blur-md border border-silver/15 hover:border-silver/35 transition-colors p-10 text-center rounded-sm">
+        <span class="font-serif text-sm text-taupe">01</span>
+        <h3 class="font-serif text-2xl text-alabaster mt-4 mb-4 leading-snug">Alta fijación<br>(8+ horas)</h3>
+        <p class="text-sm md:text-base text-white/95 leading-relaxed font-normal">Concentración Eau de Parfum con esencias prémium que perduran en tu piel todo el día.</p>
+      </div>
+      <div class="bg-white/5 backdrop-blur-md border border-silver/15 hover:border-silver/35 transition-colors p-10 text-center rounded-sm">
+        <span class="font-serif text-sm text-taupe">02</span>
+        <h3 class="font-serif text-2xl text-alabaster mt-4 mb-4 leading-snug">Tu firma<br>personal</h3>
+        <p class="text-sm md:text-base text-white/95 leading-relaxed font-normal">Fragancias icónicas creadas para dejar una huella inolvidable en la memoria.</p>
+      </div>
+      <div class="bg-white/5 backdrop-blur-md border border-silver/15 hover:border-silver/35 transition-colors p-10 text-center rounded-sm">
+        <span class="font-serif text-sm text-taupe">03</span>
+        <h3 class="font-serif text-2xl text-alabaster mt-4 mb-4 leading-snug">Lujo<br>inteligente</h3>
+        <p class="text-sm md:text-base text-white/95 leading-relaxed font-normal">La calidad y sofisticación de la alta perfumería a un precio justo ($99.900 COP).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARRUSEL: PERFUMERÍA DE DISEÑADOR ============ -->
+<section id="disenador" class="py-14 md:py-20 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-end justify-between gap-6 mb-8">
+    <div>
+      <p class="text-xs tracking-widest2 uppercase text-taupe mb-3">Grandes casas de moda</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-alabaster">Perfumería de Diseñador</h2>
+    </div>
+  </div>
+  <div class="relative w-full max-w-7xl mx-auto px-12 my-6">
+    <button type="button" onclick="document.getElementById('carrusel-disenador').scrollBy({ left: -380, behavior: 'smooth' })" style="position:absolute;left:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Anterior">&#10094;</button>
+    <div id="carrusel-disenador" class="carousel-track flex gap-6 overflow-x-auto scroll-smooth py-4 px-2 no-scrollbar" style="overflow-x: auto; overflow-y: hidden; scrollbar-width: none;"></div>
+    <button type="button" onclick="document.getElementById('carrusel-disenador').scrollBy({ left: 380, behavior: 'smooth' })" style="position:absolute;right:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Siguiente">&#10095;</button>
+  </div>
+</section>
+
+<!-- ============ CARRUSEL: PERFUMERÍA ÁRABE & ORIENTAL ============ -->
+<section id="arabe" class="py-14 md:py-20 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-end justify-between gap-6 mb-8">
+    <div>
+      <p class="text-xs tracking-widest2 uppercase text-taupe mb-3">Lo mejor de la tendencia árabe</p>
+      <h2 class="font-serif text-3xl md:text-4xl text-alabaster">Perfumería Árabe &amp; Oriental</h2>
+    </div>
+  </div>
+  <div class="relative w-full max-w-7xl mx-auto px-12 my-6">
+    <button type="button" onclick="document.getElementById('carrusel-arabe').scrollBy({ left: -380, behavior: 'smooth' })" style="position:absolute;left:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute left-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Anterior">&#10094;</button>
+    <div id="carrusel-arabe" class="carousel-track flex gap-6 overflow-x-auto scroll-smooth py-4 px-2 no-scrollbar" style="overflow-x: auto; overflow-y: hidden; scrollbar-width: none;"></div>
+    <button type="button" onclick="document.getElementById('carrusel-arabe').scrollBy({ left: 380, behavior: 'smooth' })" style="position:absolute;right:0;top:50%;z-index:50;width:48px;height:48px;transform:translateY(-50%);" class="absolute right-0 top-1/2 -translate-y-1/2 z-50 bg-white text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center text-2xl font-bold cursor-pointer border border-neutral-300 hover:scale-110 transition" aria-label="Siguiente">&#10095;</button>
+  </div>
+</section>
+
+<template id="tpl-producto">
+  <div class="tarjeta-perfume">
+    <div class="tarjeta-imagen-box">
+      <img src="" alt="" class="dato-imagen" aria-hidden="true">
+      <button type="button" class="btn-video hidden absolute bottom-3 right-3 bg-black/80 hover:bg-black text-white text-xs font-medium py-1.5 px-3 rounded-full flex items-center gap-1 backdrop-blur-sm shadow transition cursor-pointer">
+        ▶ VER VIDEO
+      </button>
+    </div>
+
+    <div class="tarjeta-info-box">
+      <h3 class="font-serif font-bold text-neutral-900 text-lg leading-tight truncate m-0 dato-nombre"></h3>
+      <button type="button" class="btn-detalles w-full py-1.5 px-3 border border-neutral-200 hover:border-black rounded-lg text-xs font-semibold text-neutral-600 hover:text-black transition uppercase tracking-wider cursor-pointer">VER DETALLES</button>
+      <div class="pt-2 flex items-center justify-between border-t border-neutral-100 mt-1">
+        <span class="precio-texto font-bold text-base dato-detal"></span>
+        <button type="button" class="dato-link flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-semibold text-sm cursor-pointer">
+          <span>💬</span> Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- ============ GARANTÍAS Y ENVÍOS ============ -->
+<section id="experiencia" class="py-24 md:py-32 scroll-mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-16 items-center mb-20">
+      <div>
+        <p class="text-xs tracking-widest2 uppercase text-taupe mb-4">Garantías y envíos</p>
+        <h2 class="font-serif text-4xl md:text-5xl leading-tight mb-6 text-alabaster">Calidad que se siente<br>desde el primer rocío.</h2>
+        <p class="text-sm md:text-base text-white/90 max-w-xl mx-auto mb-6">
+          Frascos de cristal pesado, atomizador de micro-bruma y esencias seleccionadas: cada detalle
+          de BEILÉ está pensado para que la experiencia se sienta tan bien como huele.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <img src="assets/img/texture-crystal.jpg" alt="Frasco de cristal tallado BEILÉ" class="w-full h-56 object-cover rounded-sm border border-silver/15">
+        <img src="assets/img/texture-droplet.jpg" alt="Textura de agua en tonos carbón" class="w-full h-56 object-cover rounded-sm mt-8 border border-silver/15">
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6">
+      <div class="bg-black/75 backdrop-blur-md border border-white/20 p-8 text-center rounded-sm">
+        <p class="text-2xl mb-3">🚚</p>
+        <p class="text-sm font-semibold text-white tracking-wide">Envíos a toda Colombia<br>desde Medellín</p>
+      </div>
+      <div class="bg-black/75 backdrop-blur-md border border-white/20 p-8 text-center rounded-sm">
+        <p class="text-2xl mb-3">💬</p>
+        <p class="text-sm font-semibold text-white tracking-wide">Asesoría personalizada<br>por WhatsApp</p>
+      </div>
+      <div class="bg-black/75 backdrop-blur-md border border-white/20 p-8 text-center rounded-sm">
+        <p class="text-2xl mb-3">💳</p>
+        <p class="text-sm font-semibold text-white tracking-wide">Pago fácil<br>y seguro</p>
+      </div>
+    </div>
+
+    <div class="entrega-verificada">
+      <p class="entrega-verificada-icono">🤝</p>
+      <div>
+        <h3 class="font-serif text-xl text-alabaster mb-2">Entrega Verificada en Medellín</h3>
+        <p class="text-sm md:text-base text-white/95 leading-relaxed">Nuestras entregas en Medellín y Área Metropolitana son realizadas por <strong>personal de nuestra empresa</strong>. Al momento de recibir tu pedido, puedes <strong>verificar el estado físico de tu frasco en presencia del domiciliario</strong> antes de cancelar el saldo restante contra entrega.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="py-20 md:py-28">
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
+    <p class="text-xs tracking-widest2 uppercase text-taupe text-center mb-4">Lo que dicen</p>
+    <h2 class="font-serif text-3xl md:text-4xl text-center mb-16 text-alabaster">Fragancias que dejan huella</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="testimonio-card">
+        <img src="assets/img/testimonio-sofia.jpg" alt="Foto real de Sofia V., clienta BEILÉ, con sus perfumes Sweet Like Candy y La Bomba" class="testimonio-foto" loading="lazy">
+        <div class="testimonio-cuerpo">
+          <p class="text-sm mb-3" aria-label="5 de 5 estrellas">⭐⭐⭐⭐⭐</p>
+          <p class="text-sm text-white/95 leading-relaxed mb-4">«Porq el outfits es oler rico 👑» Me llegaron en perfecto estado. La presentación es hermosa y el aroma dulce de Ariana es una delicia.</p>
+          <p class="testimonio-nombre">Sofia V. · Medellín</p>
+          <p class="testimonio-perfumes">Sweet Like Candy + La Bomba</p>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <img src="assets/img/testimonio-alejandra-luisfer.jpg" alt="Foto real de Alejandra y Luisfer, clientes BEILÉ, con sus perfumes Asad y Sweet Like Candy" class="testimonio-foto" loading="lazy">
+        <div class="testimonio-cuerpo">
+          <p class="text-sm mb-3" aria-label="5 de 5 estrellas">⭐⭐⭐⭐⭐</p>
+          <p class="text-sm text-white/95 leading-relaxed mb-4">Hicimos pedido en pareja y nos encantó. Asad tiene una presencia imponente y el de Ariana dura todo el día en la ropa. 10/10.</p>
+          <p class="testimonio-nombre">Alejandra &amp; Luisfer · Medellín</p>
+          <p class="testimonio-perfumes">Asad de Lattafa + Sweet Like Candy</p>
+        </div>
+      </div>
+      <div class="testimonio-card">
+        <img src="assets/img/testimonio-marisol.png" alt="Foto real de Marisol C., clienta BEILÉ, con su perfume Orientica Amber Rouge" class="testimonio-foto" loading="lazy">
+        <div class="testimonio-cuerpo">
+          <p class="text-sm mb-3" aria-label="5 de 5 estrellas">⭐⭐⭐⭐⭐</p>
+          <p class="text-sm text-white/95 leading-relaxed mb-4">La presentación de Orientica es una obra de arte, parece traído de Dubái. Quedé tan enamorada de la fijación que ya encargué mi segundo perfume.</p>
+          <p class="testimonio-nombre">Marisol C. · Medellín</p>
+          <p class="testimonio-perfumes">Orientica Amber Rouge (Reordenó Valentino)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO / FOOTER ============ -->
+<footer id="contacto" class="relative bg-black/40 backdrop-blur-sm border-t border-white/10 scroll-mt-24">
+  <div class="relative max-w-5xl mx-auto px-6 md:px-10 py-28 text-center">
+    <img src="assets/img/logo-marble.jpg" alt="BEILÉ Parfums" class="w-40 h-40 object-cover rounded-full mx-auto mb-10 border border-silver/25">
+    <h2 class="font-serif text-3xl md:text-4xl mb-4 text-alabaster">Fragancias que dejan huella.</h2>
+    <p class="text-mist/80 max-w-md mx-auto mb-10">📍 Medellín · Envíos a toda Colombia</p>
+    <p class="mx-auto mb-10 max-w-3xl text-xs md:text-sm font-medium text-white tracking-wide">✨ Precios de inauguración por tiempo limitado | 📦 Fragancias bajo pedido: Abono de reserva de $24.900 COP (entrega en 3 a 5 días hábiles) | 🚚 Envíos $12.000 COP (¡GRATIS llevando 2 o más!)</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+      <a href="https://wa.me/573023476047?text=Hola%20BEILÉ%2C%20quiero%20asesor%C3%ADa%20para%20elegir%20mi%20fragancia" target="_blank" rel="noopener" class="border border-silver/40 text-mist px-8 py-4 text-xs tracking-widest2 uppercase hover:bg-alabaster hover:text-ink hover:border-alabaster transition-colors">WhatsApp</a>
+      <a href="https://www.instagram.com/beile_co/" target="_blank" rel="noopener" class="border border-silver/40 text-mist px-8 py-4 text-xs tracking-widest2 uppercase hover:bg-alabaster hover:text-ink hover:border-alabaster transition-colors">Instagram @beile_co</a>
+    </div>
+    <p class="text-xs tracking-widest2 uppercase text-mist/50">Hecho para los sentidos · Hecho para permanecer.</p>
+    <p class="text-[0.65rem] text-mist/30 mt-6">© <span id="year"></span> BEILÉ Parfums. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- ============ VISTA DE PRODUCTO ============ -->
+<!-- ============ MODAL: VER PRODUCTO EN GRANDE ============ -->
+<div id="producto-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-nombre">
+    <button type="button" onclick="cerrarModal()" class="modal-cerrar" aria-label="Cerrar">&times;</button>
+    <div class="modal-grid">
+      <div class="modal-media">
+        <img id="modal-imagen" class="modal-imagen" alt="">
+        <video id="modal-video" class="modal-video hidden" controls autoplay muted loop playsinline></video>
+      </div>
+      <div class="modal-info">
+        <span id="modal-ocasion" class="modal-ocasion"></span>
+        <span id="modal-stock" class="modal-stock"></span>
+        <p id="modal-familia" class="modal-familia"></p>
+        <h2 id="modal-nombre" class="modal-nombre"></h2>
+        <p class="modal-notas-label">Notas olfativas</p>
+        <p id="modal-notas" class="modal-notas"></p>
+        <p id="modal-huele" class="modal-huele"></p>
+        <p id="modal-precio" class="modal-precio"></p>
+        <div class="modal-cantidad-row">
+          <span class="modal-cantidad-titulo">Cantidad</span>
+          <div class="modal-cantidad-box">
+            <button type="button" onclick="cambiarCantidadModal(-1)" class="modal-cantidad-btn" aria-label="Disminuir cantidad">−</button>
+            <span id="modal-cantidad" class="modal-cantidad-num">1</span>
+            <button type="button" onclick="cambiarCantidadModal(1)" class="modal-cantidad-btn" aria-label="Aumentar cantidad">+</button>
+          </div>
+        </div>
+        <button id="modal-agregar-carrito" type="button" class="modal-btn-carrito">AGREGAR AL CARRITO</button>
+        <a id="modal-whatsapp" href="#" target="_blank" rel="noopener" class="modal-btn-whatsapp">PEDIR POR WHATSAPP</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ============ CARRITO LATERAL ============ -->
+<div id="cart-overlay" class="shop-overlay fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm" aria-hidden="true">
+  <aside class="cart-drawer ml-auto flex h-full w-full max-w-md flex-col bg-[#f8f5ef] text-[#111] shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="flex items-center justify-between border-b border-neutral-200 p-6">
+      <h2 id="cart-title" class="font-serif text-3xl">Tu carrito</h2>
+      <button type="button" data-close-shop class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black text-xl text-white" aria-label="Cerrar carrito">&times;</button>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto p-6"></div>
+    <div class="border-t border-neutral-200 p-6">
+      <div class="mb-2 flex justify-between text-sm"><span>Subtotal</span><strong id="cart-subtotal">$ 0</strong></div>
+      <div class="mb-2 flex justify-between text-sm"><span>Envío</span><strong id="cart-shipping">$ 12.000</strong></div>
+      <div class="mb-2 flex justify-between text-sm font-bold"><span>Total</span><strong id="cart-total">$ 0</strong></div>
+      <p id="cart-shipping-message" class="hidden mb-3 text-xs font-semibold text-emerald-700">¡Envío GRATIS aplicado! 🚚</p>
+      <p class="cart-summary-note mb-5 text-xs">✨ Precios de inauguración por tiempo limitado | 📦 Fragancias bajo pedido: Abono de reserva de $24.900 COP (entrega en 3 a 5 días hábiles) | 🚚 Envíos $12.000 COP (¡GRATIS llevando 2 o más!)</p>
+      <button id="btn-wompi" type="button" class="mb-3 w-full bg-black px-4 py-4 text-xs font-semibold tracking-wide text-white">PAGAR CON PSE / NEQUI / TARJETA (WOMPI)</button>
+      <button id="btn-cart-whatsapp" type="button" class="w-full bg-[#25D366] px-4 py-4 text-xs font-semibold tracking-wide text-white">FINALIZAR POR WHATSAPP (CONTRA ENTREGA)</button>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ WHATSAPP FLOTANTE ============ -->
+<a href="https://wa.me/573023476047?text=Hola%20BEILÉ%2C%20quiero%20asesor%C3%ADa%20para%20elegir%20mi%20fragancia" target="_blank" rel="noopener"
+   class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg border border-white/20 hover:brightness-110 transition-[filter]">
+  <svg viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.11 8.11 0 0 1-4.14-1.13l-.3-.18-3.13.82.84-3.05-.2-.31a8.09 8.09 0 0 1-1.24-4.3c0-4.48 3.65-8.13 8.15-8.13 2.18 0 4.22.85 5.76 2.39a8.08 8.08 0 0 1 2.38 5.76c0 4.48-3.65 8.13-8.11 8.13Zm4.46-6.09c-.24-.12-1.45-.72-1.68-.8-.22-.08-.39-.12-.55.12-.16.24-.63.8-.78.97-.14.16-.29.18-.53.06-.24-.12-1.03-.38-1.96-1.21-.72-.65-1.21-1.44-1.36-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.41.08-.16.04-.31-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05s.88 2.38 1 2.54c.12.16 1.73 2.64 4.2 3.7.59.25 1.05.4 1.41.51.59.19 1.13.16 1.55.1.47-.07 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28Z"/></svg>
+</a>
+
+
+<script src="assets/productos.js"></script>
+<script src="assets/tienda.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const catalogoDisenador = catalogoPerfumes.filter((producto) => producto.tipo === 'disenador');
+  const catalogoArabe = catalogoPerfumes.filter((producto) => producto.tipo === 'arabe');
+
+  function renderCarrusel(containerId, items) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const uniqueItems = Array.from(new Map(items.map((item) => [item.imagen, item])).values());
+    container.innerHTML = uniqueItems.map(renderTarjetaHTML).join('');
+  }
+
+  // Los perfumes "unisex" (Santal 33, Arabians Tonka, Moschino Toy 2) aparecen
+  // automáticamente tanto en el carrusel de Damas como en el de Caballeros.
+  renderCarrusel('carrusel-damas', catalogoPerfumes.filter((p) => p.genero === 'damas' || p.genero === 'unisex'));
+  renderCarrusel('carrusel-caballeros', catalogoPerfumes.filter((p) => p.genero === 'caballeros' || p.genero === 'unisex'));
+  renderCarrusel('carrusel-disenador', catalogoDisenador);
+  renderCarrusel('carrusel-arabe', catalogoArabe);
+
+  // ---- Buscador en tiempo real: busca en TODO el catálogo y oculta los
+  // 4 carruseles de esta página mientras hay texto escrito (ver buscarPerfumes
+  // en assets/tienda.js). ----
+  window.CATALOGO_BUSCADOR = catalogoPerfumes;
+  window.CONTENEDORES_CATALOGO_NORMAL = ['para-ella', 'para-el', 'disenador', 'arabe'];
+</script>
+
+</body>
+</html>
