@@ -2,13 +2,38 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Blindaje (ronda 18): si por algún motivo de red el CDN de Tailwind no
+    // llegara a cargar, este bloque no lanza un error que corte la página —
+    // el sitio simplemente se ve sin estilos, pero el catálogo y el carrito
+    // igual funcionan (ver los <script> de más abajo).
+    if (window.tailwind) {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              night: '#0B0A09',
+              ink: '#0E0D0C',
+              alabaster: '#F5EFE6',
+              mist: '#DAD2C2',
+              taupe: '#B9AE9C',
+              silver: '#C7C7C7',
+            },
+            letterSpacing: {
+              widest2: '.35em',
+            },
+          },
+        },
+      };
+    }
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>COLECCIÓN MASCULINA · BEILÉ</title>
   <meta name="description" content="Colección masculina BEILÉ Parfums. Presencia, carácter y magnetismo para el caballero contemporáneo.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,400..700,100&family=Questrial&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/styles.css">
   <style>
     /* ---- Tipografía estricta (ronda 9) ------------------------------------
        Questrial para títulos, nombres de producto, menú y botones de acción;
@@ -624,7 +649,7 @@
 </head>
 <body class="bg-night text-mist font-sans antialiased">
   <div class="fixed inset-0 -z-10">
-    <img src="assets/img/marmoleado-bg.jpg" alt="" class="w-full h-full object-cover">
+    <img src="marmoleado-bg.jpg" alt="" class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-gradient-to-b from-night/22 via-night/5 to-night/25"></div>
   </div>
 
@@ -679,7 +704,7 @@
 
   <footer id="contacto" class="relative bg-black/40 backdrop-blur-sm border-t border-white/10 scroll-mt-24">
     <div class="relative max-w-5xl mx-auto px-6 md:px-10 py-28 text-center">
-      <img src="assets/img/logo-marble.jpg" alt="BEILÉ Parfums" class="w-40 h-40 object-cover rounded-full mx-auto mb-10 border border-silver/25">
+      <img src="logo-marble.jpg" alt="BEILÉ Parfums" class="w-40 h-40 object-cover rounded-full mx-auto mb-10 border border-silver/25">
       <h2 class="font-serif text-3xl md:text-4xl mb-4 text-alabaster">Fragancias que dejan huella.</h2>
       <p class="text-mist/80 max-w-md mx-auto mb-10">📍 Medellín · Envíos a toda Colombia</p>
       <p class="mx-auto mb-10 max-w-3xl text-xs md:text-sm font-medium text-white tracking-wide">✨ Precios de inauguración por tiempo limitado | 📦 Fragancias bajo pedido: Abono de reserva de $24.900 COP (entrega en 3 a 5 días hábiles) | 🚚 Envíos $12.000 COP (¡GRATIS llevando 2 o más!)</p>
@@ -772,16 +797,680 @@
   </a>
 
 
-<script src="assets/productos.js"></script>
-<script src="assets/tienda.js"></script>
 <script>
+// ============================================================
+// CATÁLOGO MAESTRO BEILÉ — ÚNICA FUENTE DE VERDAD
+// ============================================================
+// Este archivo es la ÚNICA lista de productos para TODO el sitio
+// (index.html, damas.html, caballeros.html). Antes había una copia
+// distinta pegada dentro de cada página, y por eso cada vez que se
+// agregaba un producto en un lugar, las otras páginas se quedaban
+// desactualizadas o se rompían.
+//
+// PARA AGREGAR UN PRODUCTO NUEVO:
+//   1) Sube la foto del perfume a la carpeta: 
+//   2) Copia una línea de abajo y pégala como nueva (antes del cierre "];").
+//   3) Cambia estos datos:
+//        id       -> identificador único, sin espacios (ej: 'd-mi-perfume')
+//        nombre   -> nombre que se muestra en la tarjeta
+//        genero   -> 'damas' o 'caballeros'
+//        tipo     -> 'disenador' o 'arabe'
+//        precio   -> precio en pesos, sin puntos (ej: 99900)
+//        imagen   -> 'NOMBRE-DEL-ARCHIVO.png'
+//   4) Guarda el archivo. El producto va a aparecer automáticamente
+//      en la página de Damas o Caballeros (según "genero") y en el
+//      carrusel de Diseñador o Árabe del inicio (según "tipo").
+//
+// No hace falta tocar index.html, damas.html ni caballeros.html para
+// esto — con editar esta lista alcanza.
+// ============================================================
+
+const catalogoPerfumes = [
+    // ---- Producto especial de campaña (ronda 11 — Amor y Amistad) ----
+    // `mensajeWhatsAppPersonalizado`: reemplaza el mensaje genérico de WhatsApp
+    // (más abajo, en el segundo <script>) por el texto fijo de esta promo, con espacio para
+    // que la clienta escriba a mano las 2 fragancias elegidas.
+    // (ronda 17: promo-pareja.png ya está subida al repo — `imagenFallback`
+    // queda como respaldo silencioso por si alguna vez falta).
+    { id: 'combo-pareja', nombre: 'Combo Pareja (2 Fragancias de $99.900)', genero: 'unisex', tipo: 'disenador', precio: 189900, imagen: 'promo-pareja.png', imagenFallback: 'promo-pareja.jpg', notas: 'Válido para 2 perfumes de nuestra colección de $99.900 COP a elección. Incluye bolsa de boutique BEILÉ, empaque de regalo y domicilio gratis en Medellín. (No aplica para referencias de mayor valor o árabes).', desc: 'El regalo perfecto de Amor y Amistad: 2 fragancias de $99.900 con empaque de lujo y entrega garantizada hasta el sábado 19 de septiembre.', disponible: true, mensajeWhatsAppPersonalizado: '¡Hola BEILÉ! Quiero pedir el Combo Pareja de Amor y Amistad ($189.900 COP con Domicilio Gratis y Bolsa de regalo). Mis 2 fragancias elegidas de la línea de $99.900 son: [Perfume 1] y [Perfume 2]. ¿Me confirman disponibilidad para Medellín?' },
+    { id: 'd-jadore', nombre: "J'adore", genero: 'damas', tipo: 'disenador', precio: 99900, imagen: "J'ADORE-DAMA.png", ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Ylang-ylang, rosa damascena, jazmín sambac y orquídea.', huele: 'Floral blanco luminoso, elegante y radiante.', disponible: true },
+    { id: 'd-olympea', nombre: 'Olympea', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'OLYMPEA-DAMA.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Vainilla salada, flor de naranjo, jazmín y ámbar.', huele: 'Oriental vainillado, sensual y magnético.', disponible: true },
+    { id: 'd-212-sexy', nombre: '212 Sexy Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '212-SEXY-DAMA.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Champagne rosado, kiwi, flor de azahar y almizcle blanco.', huele: 'Sexy, cálido y adictivo.', disponible: true },
+    { id: 'd-light-blue', nombre: 'Light Blue Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'LIGHT-BLUE-dama.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Limón siciliano, manzana verde, bambú y cedro blanco.', huele: 'Fresco, cítrico mediterráneo y limpio.', disponible: true },
+    { id: 'd-good-girl', nombre: 'Good Girl', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'good-girl.png.jpg', video: 'good-girl.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Almendra, café, nardos, jazmín y haba tonka.', huele: 'Seductor, café dulce y cacao intenso.', disponible: true },
+    { id: 'd-scandal', nombre: 'Scandal Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'SCANDAL-dama.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Miel, gardenia, mandarina sangre y pachulí.', huele: 'Goloso, floral almendrado y adictivo.', disponible: true },
+    { id: 'd-chance', nombre: 'Chance Eau Tendre', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'CHANCE-CHANEL-eutendre.png.jpg', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Membrillo, jazmín, té blanco y ámbar almizclado.', huele: 'Floral afrutado suave, romántico y delicado.', disponible: true },
+    { id: 'd-coco', nombre: 'Coco Chanel', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'coco-chanel.png', video: 'cocochanel.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Naranja, rosa, pachulí y vainilla.', huele: 'Oriental floral chic, sofisticado y cálido.', disponible: true },
+    { id: 'd-ch-rojo', nombre: 'CH Rojo Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'ch-rojo-dama.png.jpg', video: 'ch-men-rojo.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Pimienta rosa, jazmín, ámbar y cuero.', huele: 'Especiado floral, intenso y sofisticado.', disponible: true },
+    { id: 'd-360', nombre: '360 Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '360-DAMA.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Melón, mandarina, jazmín y sándalo.', huele: 'Floral frutal fresco y juvenil.', disponible: true },
+    { id: 'd-360-coral', nombre: '360 Coral Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '360-CORAL-DAMA.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Mango, flor de loto, orquídea y almizcle.', huele: 'Tropical floral, dulce y veraniego.', disponible: true },
+    { id: 'd-vulcan', nombre: 'Vulcan Baie', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'VULCAN-BAIE-dama.png', video: 'vulcandama.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bayas rojas, azafrán, oud y ámbar.', huele: 'Frutal especiado árabe, intenso y envolvente.', disponible: true },
+    { id: 'd-orientica', nombre: 'Orientica', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'orientica-gold-estuche-dama.png.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Azafrán, rosa, oud y ámbar dorado.', huele: 'Oriental amaderado, lujoso y envolvente.', disponible: true },
+    { id: 'd-starry-night', nombre: 'Starry Night', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'STARRY-NIGTH-dama.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Vainilla, jazmín nocturno, almizcle y ámbar.', huele: 'Floral almizclado, dulce y misterioso.', disponible: true },
+    { id: 'd-sorbetto', nombre: 'Sorbetto Rosso', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'SORBETO-ROSSO.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Cereza, frambuesa, flor de cerezo y almizcle.', huele: 'Afrutado goloso, dulce y fresco.', disponible: true },
+    { id: 'd-omnia-amethys', nombre: 'Omnia Amethyste', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'BVLGARI-OMNIA-amethys.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Uva, lichi, loto y almizcle blanco.', huele: 'Floral frutal delicado y luminoso.', disponible: true },
+    { id: 'd-omnia-coral', nombre: 'Omnia Coral', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'BVLGARI-ONMIA-coral.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Granada, mandarina, flor de jengibre y ámbar.', huele: 'Frutal floral vibrante y alegre.', disponible: true },
+    { id: 'd-fantasy', nombre: 'Fantasy', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'fantasy-britney.png.jpg', video: 'fantasy.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Manzana roja, orquídea negra, algodón de azúcar y ámbar.', huele: 'Goloso afrutado, dulce y juguetón.', disponible: true },
+    { id: 'd-bomba', nombre: 'La Bomba / Flowerbomb', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'labomba-CH.png.jpg', video: 'La-bomba.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bergamota, té verde, freesia, rosa, orquídea y pachulí.', huele: 'Floral oriental explosivo, dulce y adictivo.', disponible: true },
+    { id: 'd-can-can', nombre: 'Can Can', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'CAN-CAN-DAMA.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Mandarina, gardenia, vainilla y sándalo.', huele: 'Floral oriental sensual y cálido.', disponible: true },
+    { id: 'd-good-girl-blush', nombre: 'Good Girl Blush', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'good-girl-blush.png.jpg', video: 'good-girl-blush.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Frambuesa, flor de azahar, almendra y vainilla.', huele: 'Floral dulce, más ligero y romántico.', disponible: true },
+    { id: 'd-good-girl-legere', nombre: 'Good Girl Légère', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'GOOD-GIRL-legere-dama.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Mandarina, jazmín, almendra y almizcle blanco.', huele: 'Versión ligera y fresca, floral almendrado suave.', disponible: true },
+    { id: 'd-good-girl-supreme', nombre: 'Good Girl Suprême', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'GOOD-GILR-supreme-dama.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Café, jazmín, haba tonka y cacao.', huele: 'Más intensa y golosa, café con cacao envolvente.', disponible: true },
+    { id: 'd-good-girl-velvet', nombre: 'Good Girl Velvet Fatale', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'GOOD-GIRL-velvet-fatale.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Ciruela negra, jazmín, pachulí y vainilla.', huele: 'Oriental afrutado, aterciopelado y seductor.', disponible: true },
+    { id: 'd-cloud-pink', nombre: 'Cloud Pink', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'CLOUD-PINK-AG.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Crema de coco, praliné, orquídea y almizcle.', huele: 'Cremoso dulce, suave y delicado.', disponible: true },
+    { id: 'd-ari', nombre: 'Ari', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'ari-caja.png.jpg', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Frambuesa, flor de azahar, vainilla y almizcle.', huele: 'Floral afrutado dulce y coqueto.', disponible: true },
+    { id: 'd-la-vie', nombre: 'La Vie Est Belle', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'La-Vie-Est-Belle.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Grosella negra, iris, jazmín y praliné.', huele: 'Floral gourmand, dulce e icónico.', disponible: true },
+    { id: 'd-issey', nombre: "L'Eau d'Issey Dama", genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'Issey-miyake-dama.png.jpg', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Loto, ciclamen, freesia y almizcle.', huele: 'Floral acuático, fresco y puro.', disponible: true },
+    { id: 'd-fame-trad', nombre: 'Fame Tradicional', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'FAME-DAMA-tradicional.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Cassis, jazmín, vainilla y pachulí.', huele: 'Floral afrutado moderno y adictivo.', disponible: true },
+    { id: 'd-fame-couture', nombre: 'Fame Couture', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'FAME-COUNTURE.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Frambuesa, jazmín, vainilla intensa y ámbar.', huele: 'Versión más dulce e intensa, envolvente y golosa.', disponible: true },
+    { id: 'd-divine-caja', nombre: 'Gaultier Divine Caja', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'JPG-DIVINE-CAJA.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Bergamota, rosa, sándalo y vainilla.', huele: 'Floral amaderado, elegante y versátil.', disponible: true },
+    { id: 'd-divine-lata', nombre: 'Gaultier Divine Lata', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'JPG-DIVIN-LATA-jeanpaul.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Bergamota, rosa, sándalo y vainilla suave.', huele: 'Floral amaderado ligero, cálido y sofisticado.', disponible: true },
+    { id: 'd-212-heroes', nombre: '212 Heroes For Her', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '212-heroes-caja.png.jpg', video: '212-DAMA-HEROES-FOREVER-YOUNG.mp4.mp4', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Frambuesa, flor de cerezo, algodón de azúcar y almizcle.', huele: 'Afrutado dulce, juvenil y divertido.', disponible: true },
+    { id: 'd-vip-rose', nombre: '212 VIP Rosé', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '212-vip-rose.png.jpg', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Champagne rosado, durazno, jazmín y almizcle.', huele: 'Frutal floral festivo y glamuroso.', disponible: true },
+    { id: 'd-born-in-roma', nombre: 'Born in Roma Donna', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'valentino-donna-born-in-roma.png.jpg', video: 'born-in-roma.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bergamota, pimienta negra, jazmín sambac, almizcle y vainilla.', huele: 'Floral oriental cálido, sensual y sofisticado.', disponible: true },
+    { id: 'd-cloud', nombre: 'Cloud', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'cloud-caja.png.jpg', video: 'Ariana-grande-cloud.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Lavanda, pera, praliné, crema batida, orquídea y coco.', huele: 'Gourmand suave, cremoso y algodonoso.', disponible: true },
+    { id: 'd-sweet-candy', nombre: 'Sweet Like Candy', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'sweet-like-candy.png.jpg', video: 'sweetcandy.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Pera, mandarina, jazmín, malvavisco, guayaba rosa, sándalo y caramelo.', huele: 'Goloso frutal, dulce y adictivo.', disponible: true },
+    { id: 'd-heiress', nombre: 'Heiress Paris Hilton', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'PARIS-HILTON-heiries.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Mandarina, pera, guayaba rosa, tuberosa, iris, violeta azucarada, vainilla y ámbar.', huele: 'Floral oriental goloso, glamuroso y llamativo.', disponible: true },
+    { id: 'd-moschino-toy2', nombre: 'Moschino Toy 2', genero: 'unisex', tipo: 'disenador', precio: 99900, imagen: 'MOSCHINO-TOY-2-unisex.png', video: 'moschinotoy2.mp4.mp4', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Flor de manzano, bergamota, peonía, jazmín, almizcle y ámbar.', huele: 'Floral limpio, delicado y moderno.', disponible: true },
+    { id: 'd-coco-mademoiselle', nombre: 'Coco Mademoiselle', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'coco-chanel-mademoiselle-dama.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Naranja, bergamota, jazmín, rosa, ylang-ylang, pachulí y vainilla.', huele: 'Floral oriental chic, elegante y atemporal.', disponible: true },
+    { id: 'd-chanel-n5', nombre: 'Chanel N°5', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'coco-chanel-n°5.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Aldehídos, ylang-ylang, jazmín, rosa, iris, sándalo y vainilla.', huele: 'Floral aldehídico clásico, icónico y sofisticado.', disponible: true },
+    { id: 'd-versace-eros-femme', nombre: 'Versace Eros Pour Femme', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'versace-eros-pour-femme.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Limón siciliano, granada, jazmín, peonía, sándalo y vainilla.', huele: 'Floral afrutado sensual, fresco y seductor.', disponible: true },
+    { id: 'd-haya-cofre', nombre: 'Haya Cofre', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'haya-estuche.png.png', video: 'dama-haya.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Pera dulce, ciruela, flor de terciopelo y sándalo cremoso, en presentación de cofre de lujo.', huele: 'Frutal dulce, envolvente y elegante.', disponible: true },
+    { id: 'd-vulcan-feu', nombre: 'Vulcan Feu', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'vulcan-feu-caja.png', video: 'vulcanfeu.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Canela, clavo, azafrán, oud y ámbar cálido.', huele: 'Especiado ardiente, intenso y envolvente.', disponible: true },
+    { id: 'c-starwalker', nombre: 'Starwalker', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'starwalker-caballero.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Bergamota, cardamomo, vetiver y cedro.', huele: 'Amaderado fresco, elegante y profesional.', disponible: true },
+    { id: 'c-ombre-nomade', nombre: 'Ombré Nomade', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'OMBRE-NOMADE-caballero.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Incienso, oud, azafrán y vainilla.', huele: 'Amaderado ahumado, lujoso y envolvente.', disponible: true },
+    { id: 'c-dylan-blue', nombre: 'Dylan Blue', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'dylan-blue-caballero.png.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Toronja, bergamota, ambroxan e incienso.', huele: 'Amaderado acuático, fresco y moderno.', disponible: true },
+    { id: 'c-eau-fraiche', nombre: 'Eau Fraîche', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'eau-fraiche-caballero.png.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Menta, cítricos, salvia y cedro.', huele: 'Fresco acuático, ligero y limpio.', disponible: true },
+    { id: 'c-212-heroes-men', nombre: '212 Men Heroes', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '212-MEN-HEROES.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Toronja, menta, madera de cachemira y almizcle.', huele: 'Fresco amaderado, juvenil y activo.', disponible: true },
+    { id: 'c-sauvage', nombre: 'Sauvage', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'SAUVAGE.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Bergamota de Calabria, pimienta de Sichuan, ambroxan y vetiver.', huele: 'Fresco especiado, magnético e icónico.', disponible: true },
+    { id: 'c-phantom', nombre: 'Phantom Men Parfum', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'PHANTOM-MEN-parfum.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Manzana verde, lavanda, haba tonka y ámbar gris.', huele: 'Fresco aromático, moderno y tecnológico.', disponible: true },
+    { id: 'c-versace-eros', nombre: 'Versace Eros', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'VERSACE-EROS-tradicional.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Menta, manzana verde, haba tonka y vainilla.', huele: 'Aromático fougère, intenso y seductor.', disponible: true },
+    { id: 'c-bad-boy', nombre: 'Bad Boy', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'bad-boy.png.jpg', video: 'badboy.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Pimienta negra, cacao, lavanda y haba tonka.', huele: 'Especiado con cacao, audaz y magnético.', disponible: true },
+    { id: 'c-asad', nombre: 'Asad', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'Asad-lattafa.png.jpg', video: 'Assad-lattafa.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Pimienta negra, tabaco, café tostado y ámbar oscuro.', huele: 'Especiado cálido, oud y presencia imponente.', disponible: true },
+    { id: 'c-9am-dive', nombre: '9 AM Dive', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: '9am-dive-caja.png.jpg', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Bergamota, cardamomo, ámbar marino y almizcle.', huele: 'Fresco acuático especiado, energizante.', disponible: true },
+    { id: 'c-odyssey', nombre: 'Odyssey', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'odyssey-mandarina-caja.png.jpg', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Mandarina, azafrán, pachulí y ámbar.', huele: 'Cítrico especiado, vibrante y llamativo.', disponible: true },
+    { id: 'c-arabians-tonka', nombre: 'Arabians Tonka', genero: 'unisex', tipo: 'arabe', precio: 134900, imagen: 'ARABIANS-tonka.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Haba tonka, vainilla, ámbar y madera de cachemira.', huele: 'Gourmand amaderado, dulce e intenso.', disponible: true },
+    { id: 'c-212-vip-black', nombre: '212 VIP Black', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '212-VIP-BLACK.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Absenta, anís, lavanda y vainilla negra.', huele: 'Aromático nocturno, fiestero y magnético.', disponible: true },
+    { id: 'c-212-vip-men', nombre: '212 VIP Men', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '212-VIP-MEN.png.png', video: '212-VIP-MEN.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Vodka helada, jengibre, cedro y almizcle.', huele: 'Fresco especiado, moderno y elegante.', disponible: true },
+    { id: 'c-bleu', nombre: 'Bleu de Chanel', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'BLEU-DE-CHANEL-men.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Toronja, menta, jengibre, incienso y sándalo.', huele: 'Amaderado aromático, versátil e icónico.', disponible: true },
+    { id: 'c-one-million', nombre: 'One Million', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'ONE-MILLION-gold.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Toronja, canela, cuero y ámbar.', huele: 'Especiado amaderado, dulce y llamativo.', disponible: true },
+    { id: 'c-boss', nombre: 'Hugo Boss Bottled', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'HUGO-BOSS-bottled.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Manzana, canela, sándalo y cedro.', huele: 'Amaderado especiado, clásico y versátil.', disponible: true },
+    { id: 'c-212-nyc', nombre: '212 Men NYC', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '212-nyc-men.png.jpg', video: '212-NYC-MEN.mp4.mp4', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Menta, toronja, pimienta rosa y cedro.', huele: 'Fresco cítrico urbano, enérgico y actual.', disponible: true },
+    { id: 'c-acqua', nombre: 'Acqua Di Gio', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'ACQUA-DI-GIO.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Brisa marina, mandarina, bergamota y cedro.', huele: 'Marino refrescante, cítrico y limpio.', disponible: true },
+    { id: 'c-issey', nombre: "L'Eau d'Issey Pour Homme", genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'Issey-miyake-hombre.png.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Yuzu, salvia, cedro y vetiver.', huele: 'Acuático amaderado, fresco y minimalista.', disponible: true },
+    { id: 'c-eros-flame', nombre: 'Versace Eros Flame', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'VERSACE-EROS-flame.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Mandarina, canela, vainilla y madera de cachemira.', huele: 'Oriental especiado, cálido y sensual.', disponible: true },
+    { id: 'c-black-xs', nombre: "Black XS L'Exces", genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'BLACK-XS-LEXCES.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Absenta, guayaba, café y cuero.', huele: 'Amaderado especiado, atrevido e intenso.', disponible: true },
+    { id: 'c-pure-xs', nombre: 'Pure XS', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'PURE-XS-MEN.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Pimienta negra, jengibre, cuero y ámbar.', huele: 'Especiado amaderado, magnético y potente.', disponible: true },
+    { id: 'c-creed-aventus', nombre: 'Creed Aventus', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'CREED-AVENTUS.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Piña, grosella negra, abedul y almizcle.', huele: 'Afrutado amaderado, icónico y sofisticado.', disponible: true },
+    { id: 'c-creed-silver', nombre: 'Creed Silver Mountain', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'CREED-silver.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Bergamota, té verde, almizcle y sándalo.', huele: 'Fresco acuático, limpio y elegante.', disponible: true },
+    { id: 'c-montblanc', nombre: 'Mont Black Parfum', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'MONT-BLACK-parfum.png', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Bergamota, lavanda, manzana y sándalo.', huele: 'Aromático fresco, clásico y versátil.', disponible: true },
+    { id: 'c-santal', nombre: 'Santal 33', genero: 'unisex', tipo: 'disenador', precio: 99900, imagen: 'santal-33-caja.png.jpg', video: 'santal-33.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Sándalo australiano, papiro, cardamomo y cuero.', huele: 'Amaderado de culto, ahumado y sofisticado.', disponible: true },
+    { id: 'c-hugo-night', nombre: 'Hugo Boss Night', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'HUGO-BOSS-night-men.jpg', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Manzana, lavanda, cedro y cuero.', huele: 'Amaderado aromático, nocturno y misterioso.', disponible: true },
+    { id: 'c-swiss-army', nombre: 'Swiss Army Classic Red', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'SWISS-ARMY-RED-classic.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Manzana, canela, cedro y almizcle.', huele: 'Fresco especiado, deportivo y versátil.', disponible: true },
+    { id: 'c-stallion', nombre: 'Stallion 53', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'STALLION-53.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bergamota, pimienta negra, cuero y ámbar.', huele: 'Especiado amaderado, fuerte y varonil.', disponible: true },
+    { id: 'c-moschino', nombre: 'Moschino Toy Boy', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'MOSCHINO-TOY-2-men.png', video: 'moschinotoyboy.mp4.mp4', ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Cardamomo, iris, ámbar y pachulí.', huele: 'Floral amaderado atípico, elegante y diferente.', disponible: true },
+    { id: 'c-valentino', nombre: 'Valentino Uomo Born in Roma Intense', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'VALENTINO-intense-full-men.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bergamota, cardamomo, cuero y haba tonka.', huele: 'Amaderado especiado, intenso y sofisticado.', disponible: true },
+    { id: 'c-paradise', nombre: 'Paradise Garden', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'PARADISE-jeanpaul.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Flor de azahar, coco, madera y almizcle.', huele: 'Floral amaderado tropical, fresco y relajante.', disponible: true },
+    { id: 'c-nautica', nombre: 'Nautica Voyage', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'NAUTICA-voyage.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Manzana verde, notas marinas, musgo de roble y almizcle.', huele: 'Marino fresco, deportivo y limpio.', disponible: true },
+    { id: 'c-one-million-trad', nombre: '1 Million Tradicional', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'ONE-MILLION-tradicional.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Toronja sangre, menta, canela, rosa, cuero y ámbar.', huele: 'Especiado amaderado, dulce y llamativo.', disponible: true },
+    { id: 'c-one-million-elixir', nombre: '1 Million Elixir', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '1-million-elixir-caja.png.jpg', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Canela, hoja de higuera, toffee, avellana y cuero.', huele: 'Gourmand amaderado, intenso y concentrado.', disponible: true },
+    { id: 'c-one-million-lucky', nombre: '1 Million Lucky', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'ONE-MILLION-lucky.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Mandarina verde, pimienta rosa, durazno, almendra, haba tonka y madera de cachemira.', huele: 'Amaderado goloso, fresco y afable.', disponible: true },
+    { id: 'c-scandal-men', nombre: 'Scandal Pour Homme', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'SCANDAL-MEN.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Naranja sangre, jengibre, maní, cumarina, lavanda, pachulí y miel.', huele: 'Gourmand especiado, audaz y adictivo.', disponible: true },
+    { id: 'c-hugo-unlimited', nombre: 'Hugo Boss Unlimited', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'HUGO-BOSS-unlimited.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Manzana verde, bergamota, lavanda, nuez moscada, cedro y pachulí.', huele: 'Amaderado fresco, activo y versátil.', disponible: true },
+    { id: 'c-360-red', nombre: '360 Red Men', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '360-MEN-red.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Bergamota, cardamomo, canela, nuez moscada, sándalo y ámbar.', huele: 'Especiado amaderado, cálido y varonil.', disponible: true },
+    { id: 'c-360-gris', nombre: '360 Men Gris', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: '360-MEN-GRIS.png', ocasion: '☀️', ocasionTexto: 'DÍA', notas: 'Bergamota, manzana verde, lavanda, geranio, sándalo y musgo de roble.', huele: 'Aromático fresco, limpio y clásico.', disponible: true },
+    { id: 'c-club-de-nuit', nombre: 'Club de Nuit Intense', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'club-de-nuit-negra-men.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Limón, grosella negra, manzana, piña, abedul, jazmín, ámbar gris, pachulí y vainilla.', huele: 'Afrutado amaderado, potente y de larga duración.', disponible: true },
+    { id: 'c-9pm-night-out', nombre: '9 PM Night Out', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: '9-pm-night-out.png.jpeg', video: '9pmnightout.mp4.mp4', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Manzana, limón, canela, nuez moscada, papiro, vainilla y haba tonka.', huele: 'Especiado dulce, elegante y de larga duración.', disponible: true },
+    { id: 'c-9pm-elixir', nombre: '9 PM Elixir', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: '9-pm-elixir.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Canela, manzana, madera de papiro, vainilla y ámbar amaderado.', huele: 'Versión más concentrada y envolvente, especiada y golosa.', disponible: true },
+    { id: 'c-nitro-red', nombre: 'Nitro Red', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'nitro-red.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Manzana roja, bergamota, canela, nuez moscada, oud y almizcle.', huele: 'Especiado amaderado, intenso y con carácter.', disponible: true }
+  ];
+
+</script>
+<script>
+// ============================================================
+// TIENDA BEILÉ — lógica compartida de tarjetas, modal y carrito
+// ============================================================
+// ATENCIÓN (ronda 17): antes este archivo vivía en assets/tienda.js y se
+// cargaba una sola vez con <script src="assets/tienda.js">. Para publicar en
+// GitHub sin depender de archivos externos, este mismo código (idéntico) va
+// ahora COPIADO Y PEGADO dentro de index.html, damas.html Y caballeros.html.
+// Eso significa que arreglar o mejorar la tarjeta de producto, el modal o el
+// carrito ya NO se hace en un solo lugar — hay que repetir el cambio en los
+// 3 archivos HTML (o pedirle a Claude que lo haga por ti). Lo mismo aplica al
+// catálogo `catalogoPerfumes` de más arriba.
+//
+// Requiere que la página ya haya cargado:
+//   1) `catalogoPerfumes` (definido más arriba, en este mismo <script>)
+//   2) el HTML del modal con id="producto-modal" y el del carrito con
+//      id="cart-overlay" (ya están en las 3 páginas) antes de este <script>.
+// ============================================================
+
+const fmt = (value) => '$' + Number(value).toLocaleString('es-CO', { maximumFractionDigits: 0 }) + ' COP';
+
+// ---- Número de WhatsApp — ÚNICO lugar de todo el sitio donde se define ----
+// Todos los enlaces de "Pedir por WhatsApp" (tarjetas, modal, carrito) y
+// también los botones "Escríbenos"/flotante escritos directamente en el
+// HTML de las 3 páginas se actualizan solos a partir de esta constante
+// (ver el bloque al final de este archivo). Para cambiar el número de
+// WhatsApp de todo BEILÉ, solo hay que editar esta línea.
+const NUMERO_WHATSAPP = "573023476047"; // Número oficial BEILÉ Parfums (57 + 302 3476047).
+
+// ---- Mensaje de WhatsApp por producto — según si está EN STOCK o AGOTADO/BAJO PEDIDO ----
+// Recibe el producto completo (no solo el nombre) porque el mensaje depende
+// de su precio y de su campo `disponible` (ver productos.js).
+function mensajeWhatsApp(producto, cantidad) {
+  // Algunos productos especiales (ej. combos/promos por tiempo limitado) traen
+  // su propio texto fijo de WhatsApp en `mensajeWhatsAppPersonalizado` — si existe,
+  // se usa tal cual y se ignora la lógica genérica de stock/cantidad de abajo.
+  if (producto.mensajeWhatsAppPersonalizado) {
+    return `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(producto.mensajeWhatsAppPersonalizado)}`;
+  }
+  const sufijoCantidad = cantidad && cantidad > 1 ? ` (Cantidad: ${cantidad})` : '';
+  const texto = producto.disponible === false
+    ? `¡Hola BEILÉ! Quiero encargar bajo pedido el perfume ${producto.nombre} (${fmt(producto.precio)}). `
+      + `Entiendo que tarda de 3 a 5 días hábiles y requiere el abono de reserva de $24.900 COP por `
+      + `Bancolombia/Daviplata. ¿Me facilitan los datos?${sufijoCantidad}`
+    : `¡Hola BEILÉ! Quiero pedir ${producto.nombre} con entrega inmediata contra entrega en Medellín.${sufijoCantidad}`;
+  return `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(texto)}`;
+}
+
+// ---- Etiqueta de disponibilidad (tarjeta y modal) ----
+// Devuelve null cuando el producto está EN STOCK (no se muestra ninguna
+// etiqueta — la foto queda limpia) y solo devuelve el texto cuando está
+// agotado/bajo pedido. Acepta tanto `disponible: false` como `agotado: true`
+// en productos.js, por si en el futuro se usa cualquiera de los dos nombres.
+function etiquetaStock(producto) {
+  const estaAgotado = producto.disponible === false || producto.agotado === true;
+  return estaAgotado ? { texto: 'Agotado · Bajo Pedido' } : null;
+}
+
+// ---- Tarjeta de producto (usada en carruseles y en las grillas de Damas/Caballeros) ----
+function renderTarjetaHTML(item) {
+  const botonVideo = item.video
+    ? `<button type="button" class="btn-video" onclick="abrirModal('${item.id}')" aria-label="Ver video de ${item.nombre}">▶ VER VIDEO</button>`
+    : '';
+  const badgeOcasion = item.ocasion
+    ? `<span class="badge-ocasion" title="${item.ocasionTexto || ''}">${item.ocasion}</span>`
+    : '';
+  const stock = etiquetaStock(item);
+  // La insignia "Agotado · Bajo Pedido" solo se agrega al HTML cuando el
+  // producto está agotado — si está en stock, no se imprime ningún span y la
+  // foto queda completamente limpia. `badge-agotado-tag` es un gancho extra
+  // (además de las clases de Tailwind pedidas) que usa el CSS para correr la
+  // insignia DÍA/NOCHE hacia abajo si ambas coinciden en la misma tarjeta.
+  const badgeAgotado = stock
+    ? `<span class="absolute top-3 left-3 z-20 bg-neutral-900/90 text-amber-400 border border-amber-400/30 text-[10px] font-bold px-3 py-1 rounded-full backdrop-blur-sm tracking-wider uppercase shadow badge-agotado-tag">${stock.texto}</span>`
+    : '';
+  const textoPedido = stock ? 'Encargar Bajo Pedido' : 'Pedir';
+  const claseColorPedido = stock
+    ? 'text-amber-600 hover:text-amber-700'
+    : 'text-emerald-600 hover:text-emerald-700';
+  // Respaldo de imagen (ronda 17): si el producto trae `imagenFallback`
+  // explícito (ej. combo-pareja), se usa esa ruta exacta. Si no, se aplica
+  // un respaldo genérico .png → .jpg (pedido por Mariangel para publicar en
+  // GitHub) — si la ruta principal termina en .png y falla, prueba una vez
+  // con la misma ruta en .jpg. La condición `!this.src.endsWith('.jpg')`
+  // evita que este segundo intento vuelva a dispararse en bucle si el .jpg
+  // tampoco existe.
+  const onErrorImg = item.imagenFallback
+    ? ` onerror="this.onerror=null;this.src='${item.imagenFallback}'"`
+    : ` onerror="if(!this.src.endsWith('.jpg')){this.src=this.src.replace('.png','.jpg');}"`;
+  return `
+    <article class="tarjeta-perfume" aria-label="${item.nombre}">
+      <div class="tarjeta-imagen-box">
+        ${badgeOcasion}
+        ${badgeAgotado}
+        <img src="${item.imagen}" alt="${item.nombre}" loading="lazy" class="dato-imagen cursor-pointer" onclick="abrirModal('${item.id}')"${onErrorImg}>
+        ${botonVideo}
+      </div>
+      <div class="tarjeta-info-box">
+        <h3 class="font-serif font-bold text-neutral-900 text-lg leading-tight truncate m-0">${item.nombre}</h3>
+        <button type="button" class="btn-detalles w-full py-1.5 px-3 border border-neutral-200 hover:border-black rounded-lg text-xs font-semibold text-neutral-600 hover:text-black transition uppercase tracking-wider cursor-pointer" onclick="abrirModal('${item.id}')">VER DETALLES</button>
+        <div class="pt-2 flex items-center justify-between border-t border-neutral-100 mt-1">
+          <span class="precio-texto font-bold text-base">${fmt(item.precio)}</span>
+          <a href="${mensajeWhatsApp(item)}" target="_blank" rel="noopener" class="${claseColorPedido} font-semibold text-sm">
+            <span>💬</span> ${textoPedido}
+          </a>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+// ---- Modal de producto (ver foto/video grande + detalles) ----
+let modalProductoActual = null;
+let modalCantidad = 1;
+
+function abrirModal(id) {
+  const producto = (typeof catalogoPerfumes !== 'undefined' ? catalogoPerfumes : []).find((p) => p.id === id);
+  const modal = document.getElementById('producto-modal');
+  if (!producto || !modal) return;
+
+  modalProductoActual = producto;
+  modalCantidad = 1;
+
+  const elCantidad = document.getElementById('modal-cantidad');
+  if (elCantidad) elCantidad.textContent = modalCantidad;
+
+  const elOcasion = document.getElementById('modal-ocasion');
+  if (elOcasion) {
+    if (producto.ocasion) {
+      elOcasion.textContent = `${producto.ocasion} ${producto.ocasionTexto || ''}`.trim();
+      elOcasion.classList.remove('hidden');
+    } else {
+      elOcasion.textContent = '';
+      elOcasion.classList.add('hidden');
+    }
+  }
+
+  const elStock = document.getElementById('modal-stock');
+  if (elStock) {
+    const stock = etiquetaStock(producto);
+    if (stock) {
+      elStock.textContent = stock.texto;
+      elStock.classList.remove('hidden');
+    } else {
+      elStock.textContent = '';
+      elStock.classList.add('hidden');
+    }
+  }
+
+  const elFamilia = document.getElementById('modal-familia');
+  if (elFamilia) elFamilia.textContent = producto.tipo === 'arabe' ? 'Perfumería Árabe & Oriental' : 'Perfumería de Diseñador';
+
+  const elNombre = document.getElementById('modal-nombre');
+  if (elNombre) elNombre.textContent = producto.nombre;
+
+  const elNotas = document.getElementById('modal-notas');
+  if (elNotas) {
+    elNotas.textContent = producto.notas
+      || 'Notas olfativas completas próximamente — escríbenos por WhatsApp y te asesoramos con gusto.';
+  }
+
+  const elHuele = document.getElementById('modal-huele');
+  if (elHuele) {
+    elHuele.textContent = producto.huele ? `"¿A qué huele?" ${producto.huele}` : '';
+    elHuele.classList.toggle('hidden', !producto.huele);
+  }
+
+  const elPrecio = document.getElementById('modal-precio');
+  if (elPrecio) elPrecio.textContent = fmt(producto.precio);
+
+  const img = document.getElementById('modal-imagen');
+  const video = document.getElementById('modal-video');
+  if (video) {
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+  }
+
+  if (producto.video && video) {
+    video.src = producto.video;
+    video.classList.remove('hidden');
+    if (img) img.classList.add('hidden');
+    video.load();
+    video.play().catch(() => {});
+  } else {
+    if (video) video.classList.add('hidden');
+    if (img) {
+      img.classList.remove('hidden');
+      img.alt = producto.nombre;
+      // Mismo mecanismo de respaldo que en la tarjeta (ver renderTarjetaHTML,
+      // ronda 17): `imagenFallback` explícito si existe, si no un respaldo
+      // genérico .png → .jpg.
+      img.onerror = producto.imagenFallback
+        ? function () { img.onerror = null; img.src = producto.imagenFallback; }
+        : function () { if (!img.src.endsWith('.jpg')) { img.src = img.src.replace('.png', '.jpg'); } };
+      img.src = producto.imagen;
+    }
+  }
+
+  actualizarWhatsAppModal();
+
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+  document.body.classList.add('modal-open');
+}
+
+function cerrarModal() {
+  const modal = document.getElementById('producto-modal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  if (!document.getElementById('cart-overlay')?.classList.contains('is-open')) {
+    document.body.classList.remove('modal-open');
+  }
+  const video = document.getElementById('modal-video');
+  if (video) video.pause();
+}
+
+function cambiarCantidadModal(delta) {
+  modalCantidad = Math.max(1, modalCantidad + delta);
+  const elCantidad = document.getElementById('modal-cantidad');
+  if (elCantidad) elCantidad.textContent = modalCantidad;
+  actualizarWhatsAppModal();
+}
+
+function actualizarWhatsAppModal() {
+  if (!modalProductoActual) return;
+  const wa = document.getElementById('modal-whatsapp');
+  if (wa) {
+    wa.href = mensajeWhatsApp(modalProductoActual, modalCantidad);
+    const stock = etiquetaStock(modalProductoActual);
+    wa.textContent = stock ? 'ENCARGAR BAJO PEDIDO' : 'PEDIR POR WHATSAPP';
+  }
+}
+
+// ============================================================
+// CARRITO DE COMPRAS — persistido en localStorage
+// ============================================================
+// Se guarda solo { id, cantidad } por línea; el nombre/precio/imagen se
+// toman siempre de `catalogoPerfumes` al mostrar el carrito, así que si el
+// precio de un producto cambia en productos.js, el carrito ya guardado
+// se actualiza solo (nunca queda con un precio viejo "congelado").
+const CARRITO_STORAGE_KEY = 'beileCarrito';
+
+function cargarCarrito() {
+  try {
+    const datos = JSON.parse(localStorage.getItem(CARRITO_STORAGE_KEY) || '[]');
+    return Array.isArray(datos) ? datos : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function guardarCarrito(carrito) {
+  try {
+    localStorage.setItem(CARRITO_STORAGE_KEY, JSON.stringify(carrito));
+  } catch (e) {
+    // localStorage no disponible (modo privado del navegador, cupo lleno, etc.)
+    // — el carrito sigue funcionando en memoria durante la sesión, solo no
+    // queda guardado si la clienta recarga la página.
+  }
+}
+
+function obtenerProductoCatalogo(id) {
+  return (typeof catalogoPerfumes !== 'undefined' ? catalogoPerfumes : []).find((p) => p.id === id) || null;
+}
+
+// Cruza lo guardado en localStorage con el catálogo actual, y descarta
+// silenciosamente cualquier línea cuyo producto ya no exista.
+function itemsCarritoConDatos() {
+  return cargarCarrito()
+    .map((linea) => {
+      const producto = obtenerProductoCatalogo(linea.id);
+      return producto ? { ...producto, cantidad: linea.cantidad } : null;
+    })
+    .filter(Boolean);
+}
+
+function totalUnidades(items) {
+  return items.reduce((total, item) => total + item.cantidad, 0);
+}
+
+// Regla de envío BEILÉ: $12.000 COP con 1 solo perfume, GRATIS con 2 o más unidades.
+function calcularEnvio(unidades) {
+  return unidades >= 2 ? 0 : 12000;
+}
+
+function actualizarBadgeCarrito() {
+  const badge = document.getElementById('cart-count');
+  if (badge) badge.textContent = String(totalUnidades(itemsCarritoConDatos()));
+}
+
+function agregarAlCarrito(producto, cantidad) {
+  const carrito = cargarCarrito();
+  const existente = carrito.find((linea) => linea.id === producto.id);
+  if (existente) {
+    existente.cantidad += cantidad;
+  } else {
+    carrito.push({ id: producto.id, cantidad });
+  }
+  guardarCarrito(carrito);
+  renderCarrito();
+}
+
+function cambiarCantidadCarrito(id, delta) {
+  const carrito = cargarCarrito();
+  const linea = carrito.find((l) => l.id === id);
+  if (!linea) return;
+  linea.cantidad = Math.max(1, linea.cantidad + delta);
+  guardarCarrito(carrito);
+  renderCarrito();
+}
+
+function quitarDelCarrito(id) {
+  guardarCarrito(cargarCarrito().filter((linea) => linea.id !== id));
+  renderCarrito();
+}
+
+function renderCarrito() {
+  const items = itemsCarritoConDatos();
+
+  const contenedor = document.getElementById('cart-items');
+  if (contenedor) {
+    contenedor.innerHTML = items.length === 0
+      ? '<p class="cart-vacio">Tu carrito está vacío. Agrega tu primer perfume desde el catálogo 🤍</p>'
+      : items.map((item) => `
+        <article aria-label="${item.nombre}">
+          <img src="${item.imagen}" alt="${item.nombre}">
+          <div class="cart-item-info">
+            <h3 class="cart-item-nombre">${item.nombre}</h3>
+            <p class="cart-item-precio">${fmt(item.precio)} c/u</p>
+            <div class="cart-item-controles">
+              <div data-cart-quantity>
+                <button type="button" onclick="cambiarCantidadCarrito('${item.id}', -1)" aria-label="Disminuir cantidad">−</button>
+                <span>${item.cantidad}</span>
+                <button type="button" onclick="cambiarCantidadCarrito('${item.id}', 1)" aria-label="Aumentar cantidad">+</button>
+              </div>
+              <button type="button" data-remove-item onclick="quitarDelCarrito('${item.id}')">Quitar</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+  }
+
+  const unidades = totalUnidades(items);
+  const subtotal = items.reduce((total, item) => total + item.precio * item.cantidad, 0);
+  const envio = items.length === 0 ? 0 : calcularEnvio(unidades);
+  const total = subtotal + envio;
+
+  const elSubtotal = document.getElementById('cart-subtotal');
+  if (elSubtotal) elSubtotal.textContent = fmt(subtotal);
+
+  const elEnvio = document.getElementById('cart-shipping');
+  if (elEnvio) elEnvio.textContent = items.length === 0 ? fmt(0) : (envio === 0 ? 'GRATIS' : fmt(envio));
+
+  const elTotal = document.getElementById('cart-total');
+  if (elTotal) elTotal.textContent = fmt(total);
+
+  const elMensajeEnvio = document.getElementById('cart-shipping-message');
+  if (elMensajeEnvio) elMensajeEnvio.classList.toggle('hidden', !(items.length > 0 && envio === 0));
+
+  actualizarBadgeCarrito();
+}
+
+// Abre/cierra el cajón del carrito. Sin argumento, alterna el estado actual;
+// con true/false, fuerza abrir o cerrar (usado al agregar un producto o al
+// tocar la X / hacer clic afuera).
+function toggleCarrito(forzar) {
+  const overlay = document.getElementById('cart-overlay');
+  if (!overlay) return;
+  const abrir = typeof forzar === 'boolean' ? forzar : !overlay.classList.contains('is-open');
+  overlay.classList.toggle('is-open', abrir);
+  overlay.setAttribute('aria-hidden', abrir ? 'false' : 'true');
+  document.body.classList.toggle('modal-open', abrir);
+  if (abrir) renderCarrito();
+}
+
+// Arma el mensaje de WhatsApp para cerrar el pedido: desglosa cada producto,
+// subtotal, envío (o GRATIS) y total, y pide los datos de Bancolombia /
+// Daviplata para el abono de reserva de $24.900 COP en Medellín.
+function generarMensajeCarritoWhatsApp(metodoPago) {
+  const items = itemsCarritoConDatos();
+  if (items.length === 0) {
+    return `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent('Hola BEILÉ, quiero hacer un pedido.')}`;
+  }
+
+  const unidades = totalUnidades(items);
+  const subtotal = items.reduce((total, item) => total + item.precio * item.cantidad, 0);
+  const envio = calcularEnvio(unidades);
+  const total = subtotal + envio;
+
+  const lineas = items
+    .map((item) => `• ${item.nombre} x${item.cantidad} — ${fmt(item.precio * item.cantidad)}`)
+    .join('\n');
+  const envioTexto = envio === 0 ? 'GRATIS 🚚' : fmt(envio);
+  const metodoTexto = metodoPago === 'wompi'
+    ? 'Quiero pagar en línea con PSE, Nequi o Tarjeta (Wompi).'
+    : 'Quiero coordinar la entrega contra pago en Medellín.';
+
+  const texto = `Hola BEILÉ, quiero confirmar mi pedido:\n\n${lineas}\n\n`
+    + `Subtotal: ${fmt(subtotal)}\nEnvío: ${envioTexto}\nTotal: ${fmt(total)}\n\n`
+    + `${metodoTexto} Para reservar, ¿me confirman los datos de Bancolombia o Daviplata para el abono `
+    + `de $24.900 COP? El saldo restante lo cancelo contra entrega en Medellín.`;
+
+  return `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(texto)}`;
+}
+
+// ============================================================
+// BUSCADOR EN TIEMPO REAL (🔍) — compartido por las 3 páginas
+// ============================================================
+// Cada página define, ANTES de escribir en el buscador, dos variables
+// globales que le dicen a esta función qué buscar y qué ocultar mientras
+// se busca:
+//   window.CATALOGO_BUSCADOR         -> arreglo de productos donde buscar
+//                                        (todo el catálogo en index.html,
+//                                        solo Damas o solo Caballeros en
+//                                        esas páginas — ya incluye Unisex).
+//   window.CONTENEDORES_CATALOGO_NORMAL -> ids de los contenedores que se
+//                                        deben ocultar mientras se busca
+//                                        (los carruseles en index.html, la
+//                                        grilla de productos en Damas/Caballeros).
+function buscarPerfumes(consulta) {
+  const resultadosBox = document.getElementById('resultados-busqueda');
+  if (!resultadosBox) return;
+
+  const contenedoresNormales = (window.CONTENEDORES_CATALOGO_NORMAL || [])
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  const texto = (consulta || '').trim().toLowerCase();
+
+  if (!texto) {
+    resultadosBox.classList.add('hidden');
+    resultadosBox.innerHTML = '';
+    contenedoresNormales.forEach((el) => el.classList.remove('hidden'));
+    return;
+  }
+
+  contenedoresNormales.forEach((el) => el.classList.add('hidden'));
+
+  const catalogoBase = window.CATALOGO_BUSCADOR
+    || (typeof catalogoPerfumes !== 'undefined' ? catalogoPerfumes : []);
+
+  const coincidencias = catalogoBase.filter((p) => {
+    const familiaTexto = p.tipo === 'arabe' ? 'árabe arabe oriental' : 'diseñador disenador';
+    const campos = [p.nombre, p.notas, p.huele, familiaTexto].join(' ').toLowerCase();
+    return campos.includes(texto);
+  });
+
+  resultadosBox.classList.remove('hidden');
+  resultadosBox.innerHTML = coincidencias.length
+    ? coincidencias.map(renderTarjetaHTML).join('')
+    : '<p class="buscador-sin-resultados">No encontramos perfumes que coincidan con tu búsqueda. Escríbenos por WhatsApp y te ayudamos a encontrar tu fragancia ideal 🤍</p>';
+}
+
+// Cerrar el modal/carrito si se hace clic afuera, o con la tecla Escape;
+// enganchar el ícono 🛒, los botones del carrito, y sincronizar TODO enlace
+// de WhatsApp del sitio con el número centralizado de arriba.
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('producto-modal');
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) cerrarModal();
+    });
+  }
+
+  const btnAgregar = document.getElementById('modal-agregar-carrito');
+  if (btnAgregar) {
+    btnAgregar.addEventListener('click', () => {
+      if (!modalProductoActual) return;
+      agregarAlCarrito(modalProductoActual, modalCantidad);
+      cerrarModal();
+      toggleCarrito(true);
+    });
+  }
+
+  const btnCart = document.getElementById('btn-cart');
+  if (btnCart) {
+    btnCart.addEventListener('click', () => toggleCarrito());
+  }
+
+  const cartOverlay = document.getElementById('cart-overlay');
+  if (cartOverlay) {
+    cartOverlay.querySelectorAll('[data-close-shop]').forEach((btn) => {
+      btn.addEventListener('click', () => toggleCarrito(false));
+    });
+    cartOverlay.addEventListener('click', (e) => {
+      if (e.target === cartOverlay) toggleCarrito(false);
+    });
+  }
+
+  const btnWompi = document.getElementById('btn-wompi');
+  if (btnWompi) {
+    btnWompi.addEventListener('click', () => {
+      if (itemsCarritoConDatos().length === 0) return;
+      window.open(generarMensajeCarritoWhatsApp('wompi'), '_blank', 'noopener');
+    });
+  }
+
+  const btnCartWhatsapp = document.getElementById('btn-cart-whatsapp');
+  if (btnCartWhatsapp) {
+    btnCartWhatsapp.addEventListener('click', () => {
+      if (itemsCarritoConDatos().length === 0) return;
+      window.open(generarMensajeCarritoWhatsApp('contraentrega'), '_blank', 'noopener');
+    });
+  }
+
+  // Centraliza TODOS los enlaces de WhatsApp escritos directamente en el
+  // HTML de la página (botones "Escríbenos", el flotante, etc.) con el
+  // número de arriba — así cambiar NUMERO_WHATSAPP actualiza el sitio entero.
+  document.querySelectorAll('a[href^="https://wa.me/"]').forEach((enlace) => {
+    try {
+      const url = new URL(enlace.getAttribute('href'));
+      url.pathname = '/' + NUMERO_WHATSAPP;
+      enlace.setAttribute('href', url.toString());
+    } catch (e) {
+      // enlace mal formado — se deja como estaba
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    cerrarModal();
+    toggleCarrito(false);
+  });
+
+  // Sincroniza el número del carrito 🛒 y el resumen apenas carga la página,
+  // por si la clienta ya tenía productos guardados de una visita anterior.
+  renderCarrito();
+});
+
+</script>
+<script>
+// Ronda 18: el renderizado de productos queda envuelto en DOMContentLoaded
+// — así se garantiza que la grilla se pinte siempre DESPUÉS de que exista
+// el HTML del catálogo en el DOM, sin depender de en qué orden terminen de
+// cargar los demás recursos de la página.
+function renderizarProductos() {
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Esta página muestra los productos con genero: 'caballeros' del catálogo
-  // compartido (assets/productos.js), y también los "unisex" (Santal 33,
-  // Arabians Tonka, Moschino Toy 2), que aparecen tanto aquí como en Damas.
-  // Para agregar un perfume nuevo, edita productos.js — no hace falta tocar
-  // este archivo.
+  // `catalogoPerfumes` (primer <script> de esta misma página), y también los
+  // "unisex" (Santal 33, Arabians Tonka, Moschino Toy 2), que aparecen tanto
+  // aquí como en Damas. Para agregar un perfume nuevo, edita el arreglo en
+  // los 3 archivos HTML (ronda 17: ya no hay un productos.js compartido).
   const catalogoCaballeros = catalogoPerfumes.filter((producto) => producto.genero === 'caballeros' || producto.genero === 'unisex');
 
   const contenedor = document.getElementById('catalogo-completo');
@@ -793,6 +1482,13 @@
   // Caballeros (incluye Unisex) y oculta la grilla mientras hay texto escrito. ----
   window.CATALOGO_BUSCADOR = catalogoCaballeros;
   window.CONTENEDORES_CATALOGO_NORMAL = ['catalogo-completo'];
+}
+
+if (document.readyState === 'loading') {
+  window.addEventListener('DOMContentLoaded', renderizarProductos);
+} else {
+  renderizarProductos();
+}
 </script>
 
 </body>
