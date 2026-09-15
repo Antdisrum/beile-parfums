@@ -642,6 +642,56 @@
       padding: 2rem 1.5rem;
       font-size: .9rem;
     }
+
+    /* ---- Menú hamburguesa móvil (nuevo) ----
+       El <nav> de escritorio (hidden lg:flex) no se toca. Estas reglas solo
+       controlan el botón y el panel nuevos, visibles exclusivamente por
+       debajo de 1024px (el mismo breakpoint "lg" que ya usa el sitio). */
+    .mobile-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-left: .75rem;
+      background: transparent;
+      border: none;
+      color: #DAD2C2;
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    @media (min-width: 1024px) {
+      .mobile-nav-btn { display: none; }
+    }
+    .mobile-nav-panel {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: rgba(11, 10, 9, .98);
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding: .5rem 1.5rem 1.25rem;
+    }
+    .mobile-nav-panel.is-open {
+      display: flex;
+    }
+    .mobile-nav-panel a {
+      padding: .85rem 0;
+      font-size: .8rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: #DAD2C2;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+    .mobile-nav-panel a:last-child {
+      border-bottom: none;
+    }
+    @media (min-width: 1024px) {
+      .mobile-nav-panel { display: none !important; }
+    }
   </style>
 </head>
 <body class="bg-night text-mist font-sans antialiased">
@@ -673,8 +723,39 @@
         <span aria-hidden="true" class="text-xl">🛒</span>
         <span id="cart-count" class="cart-badge absolute -right-3 -top-2 rounded-full bg-[#25D366] px-1 text-[0.65rem] font-bold leading-[1.35rem] text-white">0</span>
       </button>
+      <button id="btn-mobile-menu" type="button" aria-label="Abrir menú" aria-expanded="false" class="mobile-nav-btn">
+        <span aria-hidden="true">☰</span>
+      </button>
     </div>
+    <nav id="mobile-nav-panel" class="mobile-nav-panel" aria-label="Menú móvil">
+      <a href="index.html">INICIO</a>
+      <a href="damas.html">DAMAS</a>
+      <a href="caballeros.html">CABALLEROS</a>
+      <a href="index.html#disenador">Diseñador</a>
+      <a href="index.html#arabe">Árabe</a>
+      <a href="index.html#experiencia">Nosotros</a>
+      <a href="index.html#contacto">Contacto</a>
+    </nav>
   </header>
+  <script>
+    (function () {
+      var btn = document.getElementById('btn-mobile-menu');
+      var panel = document.getElementById('mobile-nav-panel');
+      if (!btn || !panel) return;
+      function closeMenu() {
+        panel.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu() {
+        var isOpen = panel.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      }
+      btn.addEventListener('click', toggleMenu);
+      panel.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+    })();
+  </script>
 
   <main class="pt-28 pb-20">
     <section class="max-w-7xl mx-auto px-6 md:px-10 pt-12 pb-10">
