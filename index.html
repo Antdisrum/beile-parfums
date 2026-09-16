@@ -67,65 +67,16 @@
     height: auto !important;
   }
 
-  /* Altura equilibrada para que la imagen no estire la tarjeta verticalmente */
-.tarjeta-imagen-box {
-  position: relative;
-  width: 100%;
-  height: 210px;
-  padding: 1rem;
-  background: #fafafa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tarjeta-imagen-box img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* Anclaje para carruseles móviles: evita que el producto quede a la mitad */
-.carrusel-contenedor, [id^="carrusel-"] {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
-  gap: 1rem;
-  padding-bottom: 0.5rem;
-}
-
-/* Cada tarjeta se encaja limpia sin cortarse en móvil */
-.carrusel-contenedor > *, [id^="carrusel-"] > * {
-  flex: 0 0 78%;
-  max-width: 78%;
-  scroll-snap-align: start;
-}
-
-@media (min-width: 768px) {
   .tarjeta-imagen-box {
-    height: 250px;
+    position: relative;
+    width: 100%;
+    height: 280px;
     padding: 1.25rem;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .carrusel-contenedor > *, [id^="carrusel-"] > * {
-    flex: 0 0 calc(25% - 1rem);
-    max-width: calc(25% - 1rem);
-  }
-}
-
-.tarjeta-imagen-box img {
-  max-height: 100% !important;
-  max-width: 100% !important;
-  object-fit: contain !important;
-}
-
-@media (min-width: 768px) {
-  .tarjeta-imagen-box {
-    height: 240px;
-    padding: 1.25rem;
-  }
-}
 
   .tarjeta-imagen-box img {
     max-width: 100%;
@@ -867,6 +818,36 @@
   @media (min-width: 1024px) {
     .mobile-nav-panel { display: none !important; }
   }
+
+  @media (max-width: 640px) {
+    .tarjeta-perfume, [class*="tarjeta"] {
+      height: auto !important;
+      min-height: auto !important;
+    }
+    .tarjeta-imagen-box, .tarjeta-img-box {
+      height: 140px !important;
+      max-height: 140px !important;
+      padding: 0.5rem !important;
+    }
+    .tarjeta-imagen-box img, .tarjeta-img-box img {
+      height: 130px !important;
+      max-height: 130px !important;
+      width: auto !important;
+      margin: 0 auto !important;
+      object-fit: contain !important;
+    }
+    .tarjeta-info-box {
+      padding: 0.75rem !important;
+      gap: 0.35rem !important;
+    }
+    .tarjeta-info-box h3 {
+      font-size: 0.85rem !important;
+    }
+    .tarjeta-info-box button {
+      font-size: 9px !important;
+      padding: 0.25rem !important;
+    }
+  }
 </style>
 </head>
 <body class="bg-night text-mist font-sans antialiased">
@@ -943,10 +924,10 @@
 <!-- ============ HERO ============ -->
 <section id="inicio" class="relative py-28 md:py-36 px-6 text-center flex flex-col items-center justify-center overflow-hidden min-h-[85vh]">
   <!-- Video de fondo -->
-  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-100 pointer-events-none" style="filter: brightness(0.55);"></video>
+  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-45 pointer-events-none" style="filter: brightness(0.55);"></video>
 
   <!-- Velo oscuro transparente -->
-  <div class="absolute inset-0 bg-black/15 z-0 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-black/75 z-0 pointer-events-none"></div>
 
   <!-- Contenido flotante libre -->
   <div class="relative z-10 max-w-3xl mx-auto text-center px-4">
