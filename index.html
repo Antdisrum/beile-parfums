@@ -893,6 +893,20 @@
       padding: 0.375rem 0.75rem !important;
     }
   }
+
+  /* ---- Ronda 29: banner promocional corredizo (marquee) ---- */
+  @keyframes cintaCorrediza {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: cintaCorrediza 28s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
 </style>
 </head>
 <body class="bg-night text-mist font-sans antialiased">
@@ -961,15 +975,23 @@
   })();
 </script>
 
-<!-- ============ BANNER PROMO: ESPECIAL AMOR Y AMISTAD ============ -->
-<div class="mt-20 bg-gradient-to-r from-red-950 via-brand-graphite to-red-950 text-white py-3 px-4 text-center text-xs md:text-sm border-y border-red-800/40">
-  🌹 <strong>ESPECIAL AMOR Y AMISTAD:</strong> Combo Pareja (2 Perfumes de $99.900 COP a elección) por solo <strong>$189.900 COP</strong> con ¡DOMICILIO GRATIS! 🎁 Incluye bolsa de boutique y empaque. <em>(Válido solo en referencias de $99.900).</em> 📍 Entregas en Medellín hasta el sábado 19 de Septiembre.
+<!-- ============ BANNER PROMO: ESPECIAL RENUEVA TU AROMA (marquee) ============ -->
+<div class="mt-20 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 text-white py-2.5 overflow-hidden border-b border-amber-500/30 shadow-md">
+  <div class="marquee-track flex gap-8 whitespace-nowrap text-xs md:text-sm">
+    <span>✨ <strong>ESPECIAL RENUEVA TU AROMA:</strong> Lleva tu 2da fragancia con <strong>20% DE DESCUENTO</strong> (Diseñador o Árabe) + <strong>¡ENVÍO GRATIS!</strong> 🎁</span>
+    <span>✨ <strong>ESPECIAL RENUEVA TU AROMA:</strong> Lleva tu 2da fragancia con <strong>20% DE DESCUENTO</strong> (Diseñador o Árabe) + <strong>¡ENVÍO GRATIS!</strong> 🎁</span>
+    <span>✨ <strong>ESPECIAL RENUEVA TU AROMA:</strong> Lleva tu 2da fragancia con <strong>20% DE DESCUENTO</strong> (Diseñador o Árabe) + <strong>¡ENVÍO GRATIS!</strong> 🎁</span>
+    <span>✨ <strong>ESPECIAL RENUEVA TU AROMA:</strong> Lleva tu 2da fragancia con <strong>20% DE DESCUENTO</strong> (Diseñador o Árabe) + <strong>¡ENVÍO GRATIS!</strong> 🎁</span>
+  </div>
 </div>
 
 <!-- ============ HERO ============ -->
 <section id="inicio" class="relative py-28 md:py-36 px-6 text-center flex flex-col items-center justify-center overflow-hidden min-h-[85vh]">
   <!-- Video de fondo -->
-  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-100 pointer-events-none" style="filter: brightness(0.70);"></video>
+  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-45 pointer-events-none" style="filter: brightness(0.55);"></video>
+
+  <!-- Velo oscuro transparente -->
+  <div class="absolute inset-0 bg-black/75 z-0 pointer-events-none"></div>
 
   <!-- Contenido flotante libre -->
   <div class="relative z-10 max-w-3xl mx-auto text-center px-4">
@@ -1309,7 +1331,6 @@ const catalogoPerfumes = [
     // que la clienta escriba a mano las 2 fragancias elegidas.
     // (ronda 17: promo-pareja.png ya está subida al repo — `imagenFallback`
     // queda como respaldo silencioso por si alguna vez falta).
-    { id: 'combo-pareja', nombre: 'Combo Pareja (2 Fragancias de $99.900)', genero: 'unisex', tipo: 'disenador', precio: 189900, imagen: 'promo-pareja.png', imagenFallback: 'promo-pareja.jpg', notas: 'Válido para 2 perfumes de nuestra colección de $99.900 COP a elección. Incluye bolsa de boutique BEILÉ, empaque de regalo y domicilio gratis en Medellín. (No aplica para referencias de mayor valor o árabes).', desc: 'El regalo perfecto de Amor y Amistad: 2 fragancias de $99.900 con empaque de lujo y entrega garantizada hasta el sábado 19 de septiembre.', disponible: true, agotado: false, mensajeWhatsAppPersonalizado: '¡Hola BEILÉ! Quiero pedir el Combo Pareja de Amor y Amistad ($189.900 COP con Domicilio Gratis y Bolsa de regalo). Mis 2 fragancias elegidas de la línea de $99.900 son: [Perfume 1] y [Perfume 2]. ¿Me confirman disponibilidad para Medellín?' },
     { id: 'd-jadore', nombre: "J'adore", genero: 'damas', tipo: 'disenador', precio: 99900, imagen: "J’ADORE-DAMA.png", ocasion: '☀️🌙', ocasionTexto: 'DÍA & NOCHE', notas: 'Ylang-ylang, rosa damascena, jazmín sambac y orquídea.', huele: 'Floral blanco luminoso, elegante y radiante.', disponible: true, agotado: true },
     { id: 'd-olympea', nombre: 'Olympea', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'OLYMPEA-DAMA.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Vainilla salada, flor de naranjo, jazmín y ámbar.', huele: 'Oriental vainillado, sensual y magnético.', disponible: true, agotado: true },
     { id: 'd-212-sexy', nombre: '212 Sexy Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: '212-SEXY-DAMA.png', ocasion: '🌙', ocasionTexto: 'NOCHE', notas: 'Champagne rosado, kiwi, flor de azahar y almizcle blanco.', huele: 'Sexy, cálido y adictivo.', disponible: true, agotado: false },
@@ -1407,7 +1428,7 @@ const catalogoPerfumes = [
     // estas 5 imágenes a la raíz del repo con EXACTAMENTE estos nombres.
     { id: 'c-valentino-negro', nombre: 'Valentino Uomo Born in Roma', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'valentino-uomo-negro.png', notas: 'Salvia aromática, vetiver ahumado y jengibre.', desc: 'Elegancia masculina italiana en frasco negro total.', disponible: true, agotado: false },
     { id: 'd-scandal-absolu', nombre: 'Scandal Absolu Dama', genero: 'damas', tipo: 'disenador', precio: 99900, imagen: 'scandal-absolu.png', notas: 'Higo negro, nardos opulentos y sándalo.', desc: 'Sensualidad dorada, dulce y escandalosamente adictiva.', disponible: true, agotado: false },
-    { id: 'u-khamrah-cofre', nombre: 'Lattafa Khamrah (Cofre)', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'khamrah-zanqam.png', notas: 'Canela, praliné, dátiles dulces y vainilla.', desc: 'Lujo oriental gourmand en presentación especial de cofre.', disponible: true, agotado: false },
+    { id: 'u-khamrah-cofre', nombre: 'Lattafa Khamrah (Cofre)', genero: 'damas', tipo: 'arabe', precio: 134900, imagen: 'khamrah-zanqam.png', notas: 'Canela, praliné, dátiles dulces y vainilla.', desc: 'Lujo oriental gourmand en presentación especial de cofre.', disponible: true, agotado: false },
     { id: 'c-le-male-elixir', nombre: 'Le Male Elixir (Lata)', genero: 'caballeros', tipo: 'arabe', precio: 134900, imagen: 'le-male-elixir-jeanpaul.png', notas: 'Haba tonka dorada, lavanda, benjuí y miel.', desc: 'Dulzura ardiente de alta intensidad en lata de lujo.', disponible: true, agotado: false },
     { id: 'c-le-male-parfum', nombre: 'Le Male Le Parfum', genero: 'caballeros', tipo: 'disenador', precio: 99900, imagen: 'le-male-le-jeanpaul.png', notas: 'Cardamomo, iris noble, lavanda y vainilla.', desc: 'El capitán al mando: elegancia oscura y sofisticada.', disponible: true, agotado: false }
   ];
@@ -1856,13 +1877,20 @@ function generarMensajeCarritoWhatsApp(metodoPago) {
     ? 'Quiero pagar en línea con PSE, Nequi o Tarjeta (Wompi).'
     : 'Quiero coordinar la entrega contra pago en Medellín.';
 
+  // ronda 28: promo "Renueva tu Aroma" — si el carrito lleva 2 o más
+  // fragancias, se menciona el 20% de descuento en la 2da unidad + envío
+  // gratis, sin tocar la lógica existente del abono de $24.900.
+  const promoTexto = unidades >= 2
+    ? '\n\nPromoción aplicada: 20% de descuento en la 2da unidad + Envío Gratis.'
+    : '';
+
   const texto = hayBajoPedido
     ? `Hola BEILÉ, quiero confirmar mi pedido:\n\n${lineas}\n\n`
-      + `Subtotal: ${fmt(subtotal)}\nEnvío: ${envioTexto}\nTotal: ${fmt(total)}\n\n`
+      + `Subtotal: ${fmt(subtotal)}\nEnvío: ${envioTexto}\nTotal: ${fmt(total)}${promoTexto}\n\n`
       + `${metodoTexto} Como incluye producto(s) bajo pedido, ¿me confirman los datos de Bancolombia o `
       + `Daviplata para el abono de reserva de $24.900 COP? El saldo restante lo cancelo contra entrega en Medellín.`
     : `Hola BEILÉ, quiero confirmar mi pedido:\n\n${lineas}\n\n`
-      + `Subtotal: ${fmt(subtotal)}\nEnvío: ${envioTexto}\nTotal: ${fmt(total)}\n\n`
+      + `Subtotal: ${fmt(subtotal)}\nEnvío: ${envioTexto}\nTotal: ${fmt(total)}${promoTexto}\n\n`
       + `${metodoTexto} ¿Cuáles son los tiempos de entrega para Medellín / despacho nacional?`;
 
   return `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(texto)}`;
