@@ -907,6 +907,209 @@
   .marquee-track:hover {
     animation-play-state: paused;
   }
+
+  /* ---- Ronda 30: Asesor Olfativo Inteligente BEILÉ ---- */
+  .asesor-olfativo-section {
+    max-width: 56rem;
+    margin: 3rem auto 2.5rem;
+    padding: 0 1.25rem;
+  }
+  .asesor-olfativo-panel {
+    background: linear-gradient(160deg, #16140f, #0c0b0a);
+    border: 1px solid rgba(251, 191, 36, .28);
+    border-radius: 1.5rem;
+    padding: 2.75rem 1.75rem;
+    text-align: center;
+    box-shadow: 0 30px 70px -25px rgba(0, 0, 0, .65);
+  }
+  .asesor-titulo {
+    font-family: 'Fraunces', serif;
+    color: #F6F5F7;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 .75rem;
+  }
+  @media (min-width: 768px) {
+    .asesor-titulo { font-size: 2.1rem; }
+  }
+  .asesor-subtitulo {
+    font-family: 'Questrial', sans-serif;
+    color: #C8C4CC;
+    font-size: .9rem;
+    max-width: 34rem;
+    margin: 0 auto 1.75rem;
+    line-height: 1.6;
+  }
+  .asesor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .6rem;
+    margin-bottom: 1.5rem;
+  }
+  .asesor-tag {
+    font-family: 'Questrial', sans-serif;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(251, 191, 36, .3);
+    color: #DAD2C2;
+    font-size: .75rem;
+    padding: .5rem 1rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .asesor-tag:hover {
+    background: rgba(251, 191, 36, .12);
+    border-color: rgba(251, 191, 36, .6);
+    color: #fff;
+  }
+  .asesor-textarea {
+    width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
+    display: block;
+    background: #fff;
+    color: #181719;
+    font-family: 'Questrial', sans-serif;
+    font-size: .9rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, .08);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .35);
+    resize: vertical;
+    min-height: 5rem;
+  }
+  .asesor-textarea::placeholder { color: #9a9a9a; }
+  .asesor-textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, .55), 0 20px 40px -12px rgba(0, 0, 0, .35);
+  }
+  .asesor-textarea-error {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, .65), 0 20px 40px -12px rgba(0, 0, 0, .35) !important;
+  }
+  .asesor-btn-buscar {
+    font-family: 'Questrial', sans-serif;
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: #F6F5F7;
+    color: #181719;
+    border: none;
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: .95rem 2rem;
+    border-radius: .75rem;
+    cursor: pointer;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, .5);
+    transition: transform .15s, background .15s;
+  }
+  .asesor-btn-buscar:hover { background: #fff; transform: scale(1.03); }
+  .asesor-resultado { margin-top: 2.25rem; text-align: left; }
+  .asesor-cargando {
+    font-family: 'Questrial', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .75rem;
+    color: #DAD2C2;
+    font-size: .85rem;
+    padding: 1.5rem 0;
+  }
+  .asesor-spinner {
+    width: 1.1rem;
+    height: 1.1rem;
+    border: 2px solid rgba(251, 191, 36, .25);
+    border-top-color: #FBBF24;
+    border-radius: 50%;
+    display: inline-block;
+    animation: asesorGirar .8s linear infinite;
+  }
+  @keyframes asesorGirar {
+    to { transform: rotate(360deg); }
+  }
+  .asesor-resultado-intro {
+    font-family: 'Questrial', sans-serif;
+    text-align: center;
+    color: #DAD2C2;
+    font-size: .85rem;
+    margin: 0 0 1.5rem;
+  }
+  .asesor-resultado-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .asesor-resultado-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .asesor-tarjeta {
+    background: #fff;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .5);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f3f4f6;
+  }
+  .asesor-tarjeta-img-box {
+    width: 100%;
+    height: 220px;
+    padding: 1.25rem;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .asesor-tarjeta-img-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .asesor-tarjeta-info { padding: 1.25rem; display: flex; flex-direction: column; gap: .5rem; text-align: left; }
+  .asesor-tarjeta-info h3 {
+    font-family: 'Fraunces', serif;
+    color: #181719;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .asesor-tarjeta-precio { font-family: 'Questrial', sans-serif; color: #181719; font-weight: 700; font-size: .95rem; margin: 0; }
+  .asesor-tarjeta-notas { font-family: 'Questrial', sans-serif; color: #6b6b6b; font-size: .78rem; line-height: 1.5; margin: 0; }
+  .asesor-tarjeta-cta {
+    font-family: 'Questrial', sans-serif;
+    display: inline-block;
+    margin-top: .4rem;
+    background: #181719;
+    color: #fff;
+    text-align: center;
+    font-size: .78rem;
+    font-weight: 700;
+    padding: .65rem 1rem;
+    border-radius: .6rem;
+    text-decoration: none;
+  }
+  .asesor-tarjeta-cta:hover { background: #000; }
+  .asesor-sin-resultado {
+    font-family: 'Questrial', sans-serif;
+    text-align: center;
+    color: #DAD2C2;
+    font-size: .9rem;
+    padding: 1.5rem 0;
+  }
+
+  /* ---- Ronda 31: blindaje permanente del video del Hero (#inicio) ----
+     Regla fija del proyecto: el video de fondo del Hero de BEILÉ debe
+     mantenerse SIEMPRE al 100% de opacidad, nítido y sin ninguna capa
+     oscura (filtro de brillo, velo/overlay en div, etc.) superpuesta,
+     incluso si una actualización futura reintroduce por error una clase
+     como "opacity-45" o un <div> de velo oscuro. Estas reglas ganan por
+     especificidad de id + !important sobre cualquier utilidad de Tailwind
+     que intente oscurecerlo de nuevo. */
+  .opacity-100 { opacity: 1 !important; }
+  #inicio video {
+    opacity: 1 !important;
+  }
+  #inicio div[class*="bg-black"],
+  #inicio .hero-overlay {
+    display: none !important;
+  }
 </style>
 </head>
 <body class="bg-night text-mist font-sans antialiased">
@@ -987,10 +1190,12 @@
 
 <!-- ============ HERO ============ -->
 <section id="inicio" class="relative py-28 md:py-36 px-6 text-center flex flex-col items-center justify-center overflow-hidden min-h-[85vh]">
-  <!-- Video de fondo -->
-  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-100 pointer-events-none" style="filter: brightness(0.55);"></video>
+  <!-- Video de fondo (ronda 31: blindado permanentemente al 100% de opacidad,
+       sin filtro de brillo ni velo oscuro superpuesto — ver blindaje en CSS
+       #inicio más abajo y la regla de memoria del proyecto). -->
+  <video src="hero.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-100 pointer-events-none"></video>
 
-    <!-- Contenido flotante libre -->
+  <!-- Contenido flotante libre -->
   <div class="relative z-10 max-w-3xl mx-auto text-center px-4">
     <span class="inline-block bg-black/60 border border-white/20 text-neutral-200 text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 backdrop-blur-sm">
       BEILÉ PARFUMS
@@ -1012,6 +1217,30 @@
         Asesoría por WhatsApp
       </a>
     </div>
+  </div>
+</section>
+
+<!-- ============ ASESOR OLFATIVO INTELIGENTE BEILÉ ============ -->
+<section id="asesor-olfativo" class="asesor-olfativo-section">
+  <div class="asesor-olfativo-panel">
+    <h2 class="asesor-titulo">Asesor Olfativo BEILÉ <span aria-hidden="true">✨</span></h2>
+    <p class="asesor-subtitulo">Cuéntanos quién eres, para qué ocasión lo buscas o qué aromas te gustan, y nuestro sistema encontrará tu fragancia ideal.</p>
+
+    <div class="asesor-tags" role="group" aria-label="Sugerencias rápidas para el asesor olfativo">
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('dama')">Dama</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('caballero')">Caballero</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('uso diario')">Uso Diario</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('citas de noche')">Citas / Noche</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('dulce y vainilla')">Dulce &amp; Vainilla</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('fresco y cítrico')">Fresco &amp; Cítrico</button>
+      <button type="button" class="asesor-tag" onclick="agregarTagAsesor('amaderado')">Amaderado</button>
+    </div>
+
+    <textarea id="asesor-texto" class="asesor-textarea" rows="3" placeholder="Ej: Soy un hombre de 28 años, trabajo en oficina y busco un aroma limpio y elegante... o: Busco algo dulce y seductor para citas de noche."></textarea>
+
+    <button type="button" class="asesor-btn-buscar" onclick="buscarFraganciaIdeal()">Descubrir mi fragancia ideal <span aria-hidden="true">✨</span></button>
+
+    <div id="resultado-asesor" class="asesor-resultado hidden"></div>
   </div>
 </section>
 
@@ -1565,6 +1794,157 @@ function renderTarjetaHTML(item) {
       </div>
     </article>
   `;
+}
+
+// ---- Asesor Olfativo Inteligente BEILÉ (ronda 30) ----
+// Todo lo de aquí abajo solo LEE `catalogoPerfumes`, `fmt`, `mensajeWhatsApp`
+// y `NUMERO_WHATSAPP` (ya definidos más arriba en este mismo <script>) — no
+// agrega, quita ni modifica ningún producto del catálogo real.
+
+// Agrega texto rápido al textarea del asesor cuando se hace clic en un tag.
+function agregarTagAsesor(texto) {
+  const textarea = document.getElementById('asesor-texto');
+  if (!textarea) return;
+  const actual = textarea.value.trim();
+  textarea.value = actual ? `${actual}, ${texto}` : texto;
+  textarea.focus();
+}
+
+// Diccionario de palabras clave usado para interpretar el texto libre del
+// cliente (género, ocasión y familias de notas/adjetivos).
+const ASESOR_DICCIONARIO = {
+  genero: {
+    damas: ['dama', 'damas', 'mujer', 'mujeres', 'femenin', 'chica', 'novia', 'esposa', 'ella'],
+    caballeros: ['caballero', 'caballeros', 'hombre', 'hombres', 'masculin', 'chico', 'novio', 'esposo'],
+  },
+  ocasion: {
+    dia: ['día', 'dia', 'oficina', 'trabajo', 'diario', 'diaria', 'casual', 'universidad', 'estudio'],
+    noche: ['noche', 'nocturno', 'fiesta', 'cita', 'citas', 'salida', 'evento'],
+  },
+  notas: {
+    dulce: ['dulce', 'vainilla', 'caramelo', 'gourmand', 'postre', 'praliné', 'praline'],
+    citrico: ['cítrico', 'citrico', 'fresco', 'fresca', 'limón', 'limon', 'ligero', 'liviano', 'refrescante'],
+    floral: ['floral', 'flores', 'flor', 'jazmín', 'jazmin', 'rosa'],
+    amaderado: ['amaderado', 'madera', 'maderas', 'cedro', 'sándalo', 'sandalo'],
+    cuero: ['cuero', 'tabaco', 'ahumado'],
+    oriental: ['oriental', 'especiado', 'especias', 'ámbar', 'ambar', 'oud', 'árabe', 'arabe'],
+    seductor: ['seductor', 'seductora', 'sensual', 'intenso', 'potente', 'envolvente'],
+    elegante: ['elegante', 'limpio', 'sobrio', 'clásico', 'clasico', 'radiante'],
+  },
+};
+
+function buscarFraganciaIdeal() {
+  const textarea = document.getElementById('asesor-texto');
+  const contenedor = document.getElementById('resultado-asesor');
+  if (!textarea || !contenedor) return;
+
+  const texto = (textarea.value || '').trim().toLowerCase();
+  if (!texto) {
+    textarea.focus();
+    textarea.classList.add('asesor-textarea-error');
+    setTimeout(() => textarea.classList.remove('asesor-textarea-error'), 900);
+    return;
+  }
+
+  contenedor.classList.remove('hidden');
+  contenedor.innerHTML = '<div class="asesor-cargando"><span class="asesor-spinner" aria-hidden="true"></span>Analizando notas y fijación...</div>';
+  contenedor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Pequeña espera para que la animación de carga se sienta real; el cálculo
+  // en sí es instantáneo (solo lee el catálogo existente, no llama a ningún
+  // servicio externo).
+  setTimeout(() => {
+    renderizarRecomendacionesAsesor(calcularRecomendacionesAsesor(texto), contenedor);
+  }, 900);
+}
+
+function calcularRecomendacionesAsesor(texto) {
+  const catalogo = (typeof catalogoPerfumes !== 'undefined' ? catalogoPerfumes : []).filter((p) => p.agotado === false);
+
+  const quiereDamas = ASESOR_DICCIONARIO.genero.damas.some((k) => texto.includes(k));
+  const quiereCaballeros = ASESOR_DICCIONARIO.genero.caballeros.some((k) => texto.includes(k));
+  let generoDetectado = null;
+  if (quiereDamas && !quiereCaballeros) generoDetectado = 'damas';
+  if (quiereCaballeros && !quiereDamas) generoDetectado = 'caballeros';
+
+  const candidatos = generoDetectado
+    ? catalogo.filter((p) => p.genero === generoDetectado || p.genero === 'unisex')
+    : catalogo;
+
+  const puntuados = candidatos.map((producto) => {
+    const corpus = [producto.nombre, producto.notas, producto.desc, producto.huele, producto.genero, producto.ocasionTexto]
+      .filter(Boolean).join(' ').toLowerCase();
+    let puntos = 0;
+
+    if (ASESOR_DICCIONARIO.ocasion.dia.some((k) => texto.includes(k)) && corpus.includes('día')) puntos += 2;
+    if (ASESOR_DICCIONARIO.ocasion.noche.some((k) => texto.includes(k)) && corpus.includes('noche')) puntos += 2;
+
+    Object.values(ASESOR_DICCIONARIO.notas).forEach((palabrasFamilia) => {
+      if (!palabrasFamilia.some((k) => texto.includes(k))) return;
+      palabrasFamilia.forEach((k) => { if (corpus.includes(k)) puntos += 3; });
+    });
+
+    texto.split(/[\s,.;]+/).filter((palabra) => palabra.length > 3).forEach((palabra) => {
+      if (corpus.includes(palabra)) puntos += 1;
+    });
+
+    if (generoDetectado && producto.genero === generoDetectado) puntos += 1;
+
+    return { producto, puntos };
+  });
+
+  let mejores = puntuados.filter((r) => r.puntos > 0).sort((a, b) => b.puntos - a.puntos).slice(0, 3);
+  let esRespaldo = false;
+  if (mejores.length === 0) {
+    // Sin coincidencias por palabras clave: en vez de dejar al cliente sin
+    // nada, se ofrecen 3 disponibles del catálogo (respetando el género
+    // detectado, si lo hay) como respaldo elegante.
+    esRespaldo = true;
+    mejores = candidatos.slice(0, 3).map((producto) => ({ producto, puntos: 0 }));
+  }
+
+  return { items: mejores.map((r) => r.producto), esRespaldo };
+}
+
+function renderTarjetaAsesorHTML(item) {
+  const onErrorImg = item.imagenFallback
+    ? ` onerror="this.onerror=null;this.src='${item.imagenFallback}'"`
+    : ` onerror="if(!this.src.endsWith('.jpg')){this.src=this.src.replace('.png','.jpg');}"`;
+  return `
+    <article class="asesor-tarjeta" aria-label="${item.nombre}">
+      <div class="asesor-tarjeta-img-box">
+        <img src="${item.imagen}" alt="${item.nombre}" loading="lazy"${onErrorImg}>
+      </div>
+      <div class="asesor-tarjeta-info">
+        <h3>${item.nombre}</h3>
+        <p class="asesor-tarjeta-precio">${fmt(item.precio)}</p>
+        ${item.notas ? `<p class="asesor-tarjeta-notas"><strong>Notas:</strong> ${item.notas}</p>` : ''}
+        <a href="${mensajeWhatsApp(item)}" target="_blank" rel="noopener" class="asesor-tarjeta-cta">💬 Pedir por WhatsApp</a>
+      </div>
+    </article>
+  `;
+}
+
+function renderizarRecomendacionesAsesor(resultado, contenedor) {
+  const { items, esRespaldo } = resultado;
+
+  if (!items || items.length === 0) {
+    contenedor.innerHTML = `
+      <div class="asesor-sin-resultado">
+        No encontramos disponibilidad en este momento. Escríbenos por WhatsApp y te asesoramos personalmente.
+        <br><br>
+        <a href="https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent('Hola BEILÉ, quiero asesoría para elegir mi fragancia ideal.')}" target="_blank" rel="noopener" class="asesor-btn-buscar">💬 Hablar con un asesor</a>
+      </div>`;
+    return;
+  }
+
+  const intro = esRespaldo
+    ? '<p class="asesor-resultado-intro">No encontramos una coincidencia exacta, pero estas fragancias del catálogo pueden encantarte:</p>'
+    : '<p class="asesor-resultado-intro">Estas son las fragancias que mejor coinciden contigo:</p>';
+
+  const tarjetas = items.map((item) => renderTarjetaAsesorHTML(item)).join('');
+
+  contenedor.innerHTML = `${intro}<div class="asesor-resultado-grid">${tarjetas}</div>`;
 }
 
 // ---- Modal de producto (ver foto/video grande + detalles) ----
